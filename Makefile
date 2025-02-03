@@ -23,3 +23,12 @@ generate:
 
 clean:
 	rm -rf $(GENERATED_DIR)/* 
+
+run-server:
+	PYTHONPATH=$(PYTHONPATH):$(PWD) python3 src/server.py
+
+run-middleware:
+	PYTHONPATH=$(PYTHONPATH):$(PWD) python3 src/middleware.py
+
+run-client:
+	PYTHONPATH=$(PYTHONPATH):$(PWD) python3 src/client.py
