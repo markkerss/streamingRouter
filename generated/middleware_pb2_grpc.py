@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-import middleware_pb2 as middleware__pb2
+import generated.middleware_pb2 as middleware__pb2
 
 GRPC_GENERATED_VERSION = '1.70.0'
 GRPC_VERSION = grpc.__version__
@@ -35,7 +35,7 @@ class MiddlewareServiceStub(object):
             channel: A grpc.Channel.
         """
         self.RouteRequest = channel.stream_stream(
-                '/MiddlewareService/RouteRequest',
+                '/middleware.MiddlewareService/RouteRequest',
                 request_serializer=middleware__pb2.ServiceRequest.SerializeToString,
                 response_deserializer=middleware__pb2.ServiceResponse.FromString,
                 _registered_method=True)
@@ -60,9 +60,9 @@ def add_MiddlewareServiceServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'MiddlewareService', rpc_method_handlers)
+            'middleware.MiddlewareService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('MiddlewareService', rpc_method_handlers)
+    server.add_registered_method_handlers('middleware.MiddlewareService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -83,7 +83,7 @@ class MiddlewareService(object):
         return grpc.experimental.stream_stream(
             request_iterator,
             target,
-            '/MiddlewareService/RouteRequest',
+            '/middleware.MiddlewareService/RouteRequest',
             middleware__pb2.ServiceRequest.SerializeToString,
             middleware__pb2.ServiceResponse.FromString,
             options,

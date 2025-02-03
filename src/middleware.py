@@ -1,8 +1,6 @@
 import grpc
-import middleware_pb2
-import middleware_pb2_grpc
-import summarization_pb2
-import summarization_pb2_grpc
+from generated import middleware_pb2, middleware_pb2_grpc
+from generated import summarization_pb2, summarization_pb2_grpc
 from concurrent import futures
 
 class MiddlewareServicer(middleware_pb2_grpc.MiddlewareServiceServicer):

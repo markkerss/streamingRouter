@@ -3,7 +3,7 @@
 import grpc
 import warnings
 
-import summarization_pb2 as summarization__pb2
+import generated.summarization_pb2 as summarization__pb2
 
 GRPC_GENERATED_VERSION = '1.70.0'
 GRPC_VERSION = grpc.__version__
@@ -35,7 +35,7 @@ class SummarizationServiceStub(object):
             channel: A grpc.Channel.
         """
         self.SummarizeText = channel.stream_stream(
-                '/SummarizationService/SummarizeText',
+                '/summarization.SummarizationService/SummarizeText',
                 request_serializer=summarization__pb2.SummaryRequest.SerializeToString,
                 response_deserializer=summarization__pb2.SummaryResponse.FromString,
                 _registered_method=True)
@@ -60,9 +60,9 @@ def add_SummarizationServiceServicer_to_server(servicer, server):
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'SummarizationService', rpc_method_handlers)
+            'summarization.SummarizationService', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('SummarizationService', rpc_method_handlers)
+    server.add_registered_method_handlers('summarization.SummarizationService', rpc_method_handlers)
 
 
  # This class is part of an EXPERIMENTAL API.
@@ -83,7 +83,7 @@ class SummarizationService(object):
         return grpc.experimental.stream_stream(
             request_iterator,
             target,
-            '/SummarizationService/SummarizeText',
+            '/summarization.SummarizationService/SummarizeText',
             summarization__pb2.SummaryRequest.SerializeToString,
             summarization__pb2.SummaryResponse.FromString,
             options,

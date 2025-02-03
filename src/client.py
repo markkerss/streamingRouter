@@ -1,6 +1,5 @@
 import grpc
-import middleware_pb2
-import middleware_pb2_grpc
+from generated import middleware_pb2, middleware_pb2_grpc
 import time
 
 def stream_text():

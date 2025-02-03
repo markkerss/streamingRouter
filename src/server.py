@@ -1,8 +1,7 @@
 import grpc
 from concurrent import futures
 from vllm import LLM, SamplingParams
-import summarization_pb2
-import summarization_pb2_grpc
+from generated import summarization_pb2, summarization_pb2_grpc
 
 class SummarizationServicer(summarization_pb2_grpc.SummarizationServiceServicer):
     def __init__(self):
