@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service SummarizationService {
+  rpc SummarizeText(stream SummaryRequest) returns (stream SummaryResponse);
+}
+
+message SummaryRequest {
+  string text = 1;
+}
+
+message SummaryResponse {
+  string summary = 1;
+}
