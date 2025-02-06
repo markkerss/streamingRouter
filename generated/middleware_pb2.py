@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10middleware.proto\x12\nmiddleware\"4\n\x0eServiceRequest\x12\x14\n\x0cservice_name\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\"&\n\x0fServiceResponse\x12\x13\n\x0boutput_text\x18\x01 \x01(\t2`\n\x11MiddlewareService\x12K\n\x0cRouteRequest\x12\x1a.middleware.ServiceRequest\x1a\x1b.middleware.ServiceResponse(\x01\x30\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x10middleware.proto\x12\nmiddleware\"4\n\x0eServiceRequest\x12\x14\n\x0cservice_name\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\"\x1f\n\x0fServiceResponse\x12\x0c\n\x04text\x18\x01 \x01(\t2`\n\x11MiddlewareService\x12K\n\x0cRouteRequest\x12\x1a.middleware.ServiceRequest\x1a\x1b.middleware.ServiceResponse(\x01\x30\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -34,7 +34,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_SERVICEREQUEST']._serialized_start=32
   _globals['_SERVICEREQUEST']._serialized_end=84
   _globals['_SERVICERESPONSE']._serialized_start=86
-  _globals['_SERVICERESPONSE']._serialized_end=124
-  _globals['_MIDDLEWARESERVICE']._serialized_start=126
-  _globals['_MIDDLEWARESERVICE']._serialized_end=222
+  _globals['_SERVICERESPONSE']._serialized_end=117
+  _globals['_MIDDLEWARESERVICE']._serialized_start=119
+  _globals['_MIDDLEWARESERVICE']._serialized_end=215
 # @@protoc_insertion_point(module_scope)

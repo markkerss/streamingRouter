@@ -1,6 +1,7 @@
 import grpc
 from generated import middleware_pb2, middleware_pb2_grpc
 import time
+import threading
 
 def stream_text():
     text_chunks = [
@@ -18,15 +19,23 @@ def stream_text():
     ]
     
     for chunk in text_chunks:
+        print(f"[Client] Sending: {chunk}\n")
         yield middleware_pb2.ServiceRequest(service_name="summarization", text=chunk)
-        time.sleep(2)
+        time.sleep(1)
+
+def receiver(call):
+    for response in call:
+        print(f"[Client] Received: {response.text}\n")
 
 def run():
     channel = grpc.insecure_channel("localhost:50051")
     stub = middleware_pb2_grpc.MiddlewareServiceStub(channel)
 
-    for response in stub.RouteRequest(stream_text()):
-        print(f" {response.output_text}")
+    call = stub.RouteRequest(stream_text())
 
+    receiver_thread = threading.Thread(target=receiver, args=(call,), daemon=True)
+    receiver_thread.start()
+    receiver_thread.join()
+    
 if __name__ == "__main__":
     run()

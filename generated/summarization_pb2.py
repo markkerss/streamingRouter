@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13summarization.proto\x12\rsummarization\"\x1e\n\x0eSummaryRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"\"\n\x0fSummaryResponse\x12\x0f\n\x07summary\x18\x01 \x01(\t2j\n\x14SummarizationService\x12R\n\rSummarizeText\x12\x1d.summarization.SummaryRequest\x1a\x1e.summarization.SummaryResponse(\x01\x30\x01\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13summarization.proto\x12\rsummarization\"\x1e\n\x0eSummaryRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"\x1f\n\x0fSummaryResponse\x12\x0c\n\x04text\x18\x01 \x01(\t2j\n\x14SummarizationService\x12R\n\rSummarizeText\x12\x1d.summarization.SummaryRequest\x1a\x1e.summarization.SummaryResponse(\x01\x30\x01\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -34,7 +34,7 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_SUMMARYREQUEST']._serialized_start=38
   _globals['_SUMMARYREQUEST']._serialized_end=68
   _globals['_SUMMARYRESPONSE']._serialized_start=70
-  _globals['_SUMMARYRESPONSE']._serialized_end=104
-  _globals['_SUMMARIZATIONSERVICE']._serialized_start=106
-  _globals['_SUMMARIZATIONSERVICE']._serialized_end=212
+  _globals['_SUMMARYRESPONSE']._serialized_end=101
+  _globals['_SUMMARIZATIONSERVICE']._serialized_start=103
+  _globals['_SUMMARIZATIONSERVICE']._serialized_end=209
 # @@protoc_insertion_point(module_scope)

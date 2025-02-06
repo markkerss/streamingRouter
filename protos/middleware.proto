@@ -12,5 +12,5 @@ message ServiceRequest {
 }
 
 message ServiceResponse {
-    string output_text = 1;
+    string text = 1;
 } 
