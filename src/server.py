@@ -21,8 +21,8 @@ class SummarizationServicer(summarization_pb2_grpc.SummarizationServiceServicer)
         while True:
             request = requests.get()
             print(f"[Server] receiving: {request.text}\n")
-            prompt = f"Summarize the following text concisely in 20 words or less: {request.text} {', making it flow with the previous summary:' + self.summary if self.summary else ''}"
-            sampling_params = SamplingParams(temperature=0.7, max_tokens=20)
+            prompt = f"Summarize the following text concisely: '{request.text}'"
+            sampling_params = SamplingParams(temperature=0.7, max_tokens=50)
             outputs = self.llm.generate(prompt, sampling_params)
 
             new_summary = outputs[0].outputs[0].text.strip()

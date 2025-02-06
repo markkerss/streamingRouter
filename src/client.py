@@ -21,7 +21,6 @@ def stream_text():
     for chunk in text_chunks:
         print(f"[Client] Sending: {chunk}\n")
         yield middleware_pb2.ServiceRequest(service_name="summarization", text=chunk)
-        time.sleep(1)
 
 def receiver(call):
     for response in call:
