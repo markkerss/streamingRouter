@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package middleware;
+
+import "google/protobuf/empty.proto";
+
+service Router {
+  rpc RouteRequest(stream Request) returns (google.protobuf.Empty);
+  rpc ReceiveResponse(JobInfo) returns (Response);
+}
+
+message JobInfo {
+  string info = 1;
+}
+
+message Request {
+  string info = 1;
+}
+
+message Response {
+  string info = 1;
+}
