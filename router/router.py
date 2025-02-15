@@ -1,5 +1,5 @@
 import grpc
-from generated import router_pb2, router_pb2_grpc
+from generated import router_pb2_grpc
 from concurrent import futures
 from queue import Queue
 from threading import Thread
@@ -13,21 +13,6 @@ class Router():
           "simple": router_pb2_grpc.RouterStub(grpc.insecure_channel("localhost:50052"))
         }
         self.requestQs = {}
-    
-    # def _receive_requests(self, request_iterator):
-    #     def _route_request_call(job_id):
-    #       self.stubs["simple"].RouteRequest(self._generate_requests(job_id))
-
-    #     start_generate = False
-    #     for request in request_iterator:
-    #         requestJson = json.loads(request.info)
-    #         if not start_generate:
-    #           Thread(target=_route_request_call, args=(requestJson.get("job_id"),), daemon=True).start()
-    #           start_generate = True
-    #         if requestJson["job_id"] not in self.requestQs:
-    #           self.requestQs[requestJson["job_id"]] = Queue()
-    #         print(f"Receiving this {requestJson['data']} on the middleware")
-    #         self.requestQs[requestJson.get("job_id")].put(request)
 
     def _generate_requests(self, job_id):
         while True:
