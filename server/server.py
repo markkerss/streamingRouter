@@ -2,35 +2,20 @@ from generated import router_pb2_grpc, router_pb2
 import json
 import grpc
 from concurrent import futures
-from threading import Thread
 from queue import Queue
-from google.protobuf.empty_pb2 import Empty
+from serverTemplate import ServerTemplate
 
 
-class SimpleServer(router_pb2_grpc.RouterServicer):
+class SimpleServer(ServerTemplate):
   def __init__(self):
     self.jobQs = {}
 
-  # def _receive_request(self, request_iterator):
-  #   for request in request_iterator:
-  #     requestJson = json.loads(request.info)
-  #     if requestJson["job_id"] not in self.jobQs:
-  #       self.jobQs[requestJson["job_id"]] = Queue()
-  #     print(f"Receiving this ${json.loads(request.info)['data']} in the server!")
-  #     self.jobQs[requestJson["job_id"]].put(request)
-
-  def RouteRequest(self, request_iterator, context):
-    for request in request_iterator:
-      requestJson = json.loads(request.info)
-      if requestJson["job_id"] not in self.jobQs:
-        self.jobQs[requestJson["job_id"]] = Queue()
-      print(f"Receiving this ${json.loads(request.info)['data']} in the server!")
-      self.jobQs[requestJson["job_id"]].put(request)
-    return Empty()
-  
-  def ReceiveResponse(self, request, context):
-    job_id = json.loads(request.info)["job_id"]
-    return self.run_query(job_id)
+  def add_query(self, request):
+    requestJson = json.loads(request.info)
+    if requestJson["job_id"] not in self.jobQs:
+      self.jobQs[requestJson["job_id"]] = Queue()
+    print(f"Receiving this ${json.loads(request.info)['data']} in the server!")
+    self.jobQs[requestJson["job_id"]].put(request)
   
   def run_query(self, jobId):
     result = []
