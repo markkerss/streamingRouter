@@ -8,11 +8,8 @@ class Main:
     simpleServer = ClientLibrary("simple")
     for animal in self.list:
       simpleServer.add_query(animal)
-    
-    while True:
-      response = simpleServer.run_query()
-      if len(response) != 0:
-        print(response)
+
+    print(simpleServer.run_query())
 
 if __name__ == "__main__":
   Main().run()

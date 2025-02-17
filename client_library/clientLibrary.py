@@ -31,9 +31,11 @@ class ClientLibrary():
     print("Putting", chunk)
   
   def run_query(self):
-    request = json.dumps({"job_id": self.job_id, "service_name": self.name})
-    request = router_pb2.JobInfo(info=request)
-    response = self.stub.ReceiveResponse(request)
-    jsonResponse = json.loads(response.info)
+    jsonResponse = [] 
+    while len(jsonResponse) == 0:
+      request = json.dumps({"job_id": self.job_id, "service_name": self.name})
+      request = router_pb2.JobInfo(info=request)
+      response = self.stub.ReceiveResponse(request)
+      jsonResponse = json.loads(response.info)
     return jsonResponse
     
