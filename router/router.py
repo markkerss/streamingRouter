@@ -14,25 +14,26 @@ class Router():
         }
         self.requestQs = {}
 
-    def _generate_requests(self, job_id):
+    def _generate_requests(self, service_name):
         while True:
-            request = self.requestQs[job_id].get()
+            request = self.requestQs[service_name].get()
             print(f"Sending this {json.loads(request.info)['data']} to the server!")
             yield request
 
     def RouteRequest(self, request_iterator, context):
-      def _route_request_call(job_id):
-          self.stubs["simple"].RouteRequest(self._generate_requests(job_id))
+      def _route_request_call(service_name):
+          self.stubs[service_name].RouteRequest(self._generate_requests(service_name))
       start_generate = False
       for request in request_iterator:
           requestJson = json.loads(request.info)
+          service_name = requestJson["service_name"]
           if not start_generate:
-            Thread(target=_route_request_call, args=(requestJson.get("job_id"),), daemon=True).start()
+            Thread(target=_route_request_call, args=(service_name,), daemon=True).start()
             start_generate = True
-          if requestJson["job_id"] not in self.requestQs:
-            self.requestQs[requestJson["job_id"]] = Queue()
+          if service_name not in self.requestQs:
+            self.requestQs[service_name] = Queue()
           print(f"Receiving this {requestJson['data']} on the middleware")
-          self.requestQs[requestJson.get("job_id")].put(request)
+          self.requestQs[service_name].put(request)
       return Empty()
         
     def ReceiveResponse(self, request, context):

@@ -1,5 +1,4 @@
 from client_library.clientLibrary import ClientLibrary
-import time
 
 class Main:
   def __init__(self):
