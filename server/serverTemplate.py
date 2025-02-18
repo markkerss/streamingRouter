@@ -9,8 +9,8 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
   def __init__(self):
     self.requests = {}
 
-    channel = grpc.insecure_channel("localhost:50051")
-    self.stub = router_pb2_grpc.RouterStub(channel)
+    routerChannel = grpc.insecure_channel("localhost:50051")
+    self.stub = router_pb2_grpc.RouterStub(routerChannel)
 
   def _add_req_to_dict(self, request):
     requestJson = json.loads(request.info)
@@ -45,7 +45,6 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
       if haveEverything:
         break
       time.sleep(1)
-    print("out of loop")
 
     chunksOfData = [json.loads(chunkInfo.info)["data"] for chunkInfo in self.requests[requestJson["request_id"]].values()]
 
@@ -57,8 +56,8 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
       "request_ip": requestJson["request_ip"]
     }))
     del self.requests[requestJson["request_id"]]
+    print("Sending response from server to router")
     self.stub.ReceiveResponse(response)
-    print(response)
     return response
 
   def ReceiveResponse(self, request, context):

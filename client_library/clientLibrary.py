@@ -3,7 +3,7 @@ from generated import router_pb2, router_pb2_grpc
 import grpc
 import json
 import uuid
-from threading import Thread, Lock
+from threading import Thread, Lock, Event
 from concurrent import futures
 import time
 
@@ -17,12 +17,14 @@ class ClientLibrary(router_pb2_grpc.RouterServicer):
     self.currChunkId = 0
     self.requestId = str(uuid.uuid4())
     self.lock = Lock()
-    self.ip = "localhost:50050"
-  
-    self._start_server(self.ip)
+    self.ip = None
 
-    channel = grpc.insecure_channel("localhost:50051")
-    self.stub = router_pb2_grpc.RouterStub(channel)
+    self._port_assigned = Event()
+    self._start_server()
+    self._port_assigned.wait()
+
+    routerChannel = grpc.insecure_channel("localhost:50051")
+    self.stub = router_pb2_grpc.RouterStub(routerChannel)
   
     def send_to_middleware():
       self.stub.RouteRequestChunks(self._generate_query())
@@ -53,7 +55,7 @@ class ClientLibrary(router_pb2_grpc.RouterServicer):
   def add_query(self, chunk):
     requestJson = self._create_request_json(chunk, False)
     self.requests.put(json.dumps(requestJson))
-    print("Putting", chunk)
+    print("Client putting", chunk)
   
   def run_query(self, chunk):
     this_req_id = self.requestId
@@ -78,13 +80,15 @@ class ClientLibrary(router_pb2_grpc.RouterServicer):
     self.responses[responseJson["request_id"]] = responseJson["data"]
     return Empty()
 
-  def _start_server(self, ip):
+  def _start_server(self):
     def serve():
       server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
       router_pb2_grpc.add_RouterServicer_to_server(self, server)
-      server.add_insecure_port("[::]:50050")
+      port = server.add_insecure_port("[::]:0")
+      self.ip = f"localhost:{port}"
+      self._port_assigned.set()
       server.start()
 
-      print("Client Service Running on port 50050")
+      print("Client Service Running on port", self.ip)
       server.wait_for_termination()
     Thread(target=serve, daemon=True).start()

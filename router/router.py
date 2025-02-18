@@ -21,12 +21,12 @@ class Router(router_pb2_grpc.RouterServicer):
       self.lock = Lock()
 
     def _generate_requests(self, service_name):
-        while True:
-          request = self.requestQs[service_name].get()
-          print(f"Sending this {json.loads(request.info)['data']} to the server!")
-          yield request
+      while True:
+        request = self.requestQs[service_name].get()
+        print(f"Sending this {json.loads(request.info)['data']} to the server!")
+        yield request
 
-    def _run_route_chunks(self, service_name):
+    def _open_server_pipe(self, service_name):
       self.serverStubs[service_name].RouteRequestChunks(self._generate_requests(service_name))
       
     def _process_req(self, request):
@@ -36,7 +36,7 @@ class Router(router_pb2_grpc.RouterServicer):
       with self.lock:
         if service_name not in self.serverPipes:
           Thread(
-            target=self._run_route_chunks,
+            target=self._open_server_pipe,
             args=(service_name,),
             daemon=True
           ).start()
