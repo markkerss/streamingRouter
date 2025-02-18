@@ -28,7 +28,7 @@ class Router(router_pb2_grpc.RouterServicer):
 
     def _open_server_pipe(self, service_name):
       self.serverStubs[service_name].RouteRequestChunks(self._generate_requests(service_name))
-      
+
     def _process_req(self, request):
       requestJson = json.loads(request.info)
       service_name = requestJson["service_name"]
@@ -44,6 +44,13 @@ class Router(router_pb2_grpc.RouterServicer):
         if request_id not in self.clientStubs:
           self.clientStubs[request_id] = router_pb2_grpc.RouterStub(grpc.insecure_channel(requestJson["request_ip"]))
 
+    def _block_until_req_avail(self, request_id, requestStore, backoff=1):
+      while True:
+        with self.lock:
+          if request_id in requestStore:
+            break
+        time.sleep(backoff)
+
     def RouteRequestChunks(self, request_iterator, context):
       for request in request_iterator:
         self._process_req(request)   
@@ -54,24 +61,17 @@ class Router(router_pb2_grpc.RouterServicer):
     def RouteLastRequestChunk(self, request, context):
       self._process_req(request)
       requestJson = json.loads(request.info)
+      request_id = requestJson["request_id"]
       stub = self.serverStubs[requestJson["service_name"]]
       stub.RouteLastRequestChunk(request)
-      this_req_id = requestJson["request_id"]
-      while True:
-        print("Waiting for response on middleware")
-        with self.lock:
-          if this_req_id in self.responses:
-            break
-        time.sleep(1)
-      response = self.responses[this_req_id]
-      del self.responses[this_req_id]
-      while True:
-        with self.lock:
-          if this_req_id in self.clientStubs:
-            print("Sent response to client from middleware")
-            self.clientStubs[this_req_id].ReceiveResponse(response)
-            break
-        time.sleep(1)
+
+      self._block_until_req_avail(request_id, self.responses)
+      self._block_until_req_avail(request_id, self.clientStubs)
+      response = self.responses[request_id]
+      self.clientStubs[request_id].ReceiveResponse(response)
+      del self.responses[request_id]
+      del self.clientStubs[request_id]
+      
       return response
 
     def ReceiveResponse(self, response, context):
