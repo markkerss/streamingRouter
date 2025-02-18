@@ -1,30 +1,14 @@
-from generated import router_pb2_grpc, router_pb2
-import json
+from generated import router_pb2_grpc
 import grpc
 from concurrent import futures
-from queue import Queue
 from serverTemplate import ServerTemplate
 
 class SimpleServer(ServerTemplate):
-  def __init__(self):
-    self.jobQs = {}
-
-  def add_query(self, request):
-    requestJson = json.loads(request.info)
-    if requestJson["job_id"] not in self.jobQs:
-      self.jobQs[requestJson["job_id"]] = Queue()
-    print(f"Receiving this ${json.loads(request.info)['data']} in the server!")
-    self.jobQs[requestJson["job_id"]].put(request)
+  def add_query(self, chunk):
+    return chunk + " bob!"
   
-  def run_query(self, jobId):
-    result = []
-    while True:
-      if jobId in self.jobQs:
-        break
-    while not self.jobQs[jobId].empty():
-      data = json.loads(self.jobQs[jobId].get().info)["data"]
-      result.append(data)
-    return router_pb2.Response(info=json.dumps(result))
+  def run_query(self, requests):
+    return requests
 
 def serve():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

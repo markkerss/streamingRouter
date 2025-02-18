@@ -1,16 +1,13 @@
 syntax = "proto3";
 
-package middleware;
+package router;
 
 import "google/protobuf/empty.proto";
 
 service Router {
-  rpc RouteRequest(stream Request) returns (google.protobuf.Empty);
-  rpc ReceiveResponse(JobInfo) returns (Response);
-}
-
-message JobInfo {
-  string info = 1;
+  rpc RouteRequestChunks(stream Request) returns (google.protobuf.Empty);
+  rpc RouteLastRequestChunk(Request) returns (Response);
+  rpc ReceiveResponse(Response) returns (google.protobuf.Empty);
 }
 
 message Request {

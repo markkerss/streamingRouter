@@ -6,10 +6,10 @@ class Main:
   
   def run(self):
     simpleServer = ClientLibrary("simple")
-    for animal in self.list:
-      simpleServer.add_query(animal)
-
-    print(simpleServer.run_query())
+    for i in range(2):
+      simpleServer.add_query(self.list[i])
+    print(simpleServer.run_query(self.list[2]))
+    print(simpleServer.run_query(self.list[3]))
 
 if __name__ == "__main__":
   Main().run()
