@@ -52,14 +52,15 @@ class ClientLibrary(router_pb2_grpc.RouterServicer):
       self.currChunkId += 1
     return currRequest
   
-  def add_query(self, chunk):
-    requestJson = self._create_request_json(chunk, False)
+  def add_query(self, chunk, is_final=False):
+    requestJson = self._create_request_json(chunk, is_final)
     self.requests.put(json.dumps(requestJson))
     print("Client putting", chunk)
+    return requestJson
   
   def run_query(self, chunk):
     this_req_id = self.requestId
-    requestJson = self._create_request_json(chunk, True)
+    requestJson = self.add_query(chunk, True)
     self.stub.RouteLastRequestChunk(router_pb2.Request(info=json.dumps(requestJson)))
     while True:
       if this_req_id in self.responses:

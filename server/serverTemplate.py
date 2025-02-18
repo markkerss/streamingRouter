@@ -29,25 +29,18 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
     return Empty()
   
   def RouteLastRequestChunk(self, request, context):
-    self._add_req_to_dict(request)
     requestJson = json.loads(request.info)
 
     # Ensure all chunks have arrived
     chunk_ids = set([i for i in range(requestJson["chunk_id"] + 1)])
     while True:
-      req_dict = self.requests[requestJson["request_id"]]
-      print(req_dict)
-      haveEverything = True
-      for i in chunk_ids:
-        if i not in req_dict:
-          haveEverything = False
-          break
-      if haveEverything:
+      req_dict_chunk_ids = set(self.requests[requestJson["request_id"]].keys())
+      if chunk_ids.issubset(req_dict_chunk_ids):
         break
       time.sleep(1)
 
     chunksOfData = [json.loads(chunkInfo.info)["data"] for chunkInfo in self.requests[requestJson["request_id"]].values()]
-
+    del self.requests[requestJson["request_id"]]
     newData = self.run_query(chunksOfData)
     response = router_pb2.Response(info=json.dumps({
       "data": newData,
@@ -55,9 +48,10 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
       "service_name": requestJson["service_name"],
       "request_ip": requestJson["request_ip"]
     }))
-    del self.requests[requestJson["request_id"]]
+
     print("Sending response from server to router")
     self.stub.ReceiveResponse(response)
+
     return response
 
   def ReceiveResponse(self, request, context):
