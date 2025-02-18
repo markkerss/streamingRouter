@@ -55,7 +55,7 @@ class ClientLibrary(router_pb2_grpc.RouterServicer):
   def add_query(self, chunk, is_final=False):
     requestJson = self._create_request_json(chunk, is_final)
     self.requests.put(json.dumps(requestJson))
-    print("Client putting", chunk)
+    # print("Client putting", chunk)
     return requestJson
   
   def run_query(self, chunk):
