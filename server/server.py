@@ -7,8 +7,8 @@ class SimpleServer(ServerTemplate):
   def add_query(self, chunk):
     return chunk + " bob!"
   
-  def run_query(self, requests):
-    return requests
+  def run_query(self, chunks):
+    return chunks
 
 def serve():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
