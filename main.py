@@ -21,5 +21,9 @@ class Main:
 
 if __name__ == "__main__":
   main = Main()
-  Thread(target=main.run(), daemon=True).start()
-  Thread(target=main.run2(), daemon=True).start()
+  t1 = Thread(target=main.run, daemon=True)
+  t2 = Thread(target=main.run2, daemon=True)
+  t1.start()
+  t2.start()
+  t1.join()
+  t2.join()

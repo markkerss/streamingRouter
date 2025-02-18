@@ -6,7 +6,7 @@ import "google/protobuf/empty.proto";
 
 service Router {
   rpc RouteRequestChunks(stream Request) returns (google.protobuf.Empty);
-  rpc RouteLastRequestChunk(Request) returns (Response);
+  rpc RouteLastRequestChunk(Request) returns (google.protobuf.Empty);
   rpc ReceiveResponse(Response) returns (google.protobuf.Empty);
 }
 

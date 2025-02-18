@@ -25,10 +25,10 @@ clean:
 	rm -rf $(GENERATED_DIR)/* 
 
 run-server:
-	PYTHONPATH=$(PYTHONPATH):$(PWD) python3 src/server.py
+	PYTHONPATH=. python3 server/server.py
 
-run-middleware:
-	PYTHONPATH=$(PYTHONPATH):$(PWD) python3 src/middleware.py
+run-router:
+	PYTHONPATH=. python3 router/router.py
 
 run-client:
-	PYTHONPATH=$(PYTHONPATH):$(PWD) python3 src/client.py
+	PYTHONPATH=. python3 main.py

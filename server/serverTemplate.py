@@ -4,13 +4,15 @@ from google.protobuf.empty_pb2 import Empty
 from abc import abstractmethod, ABC 
 import time
 import grpc
+from threading import Lock
 
 class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
   def __init__(self):
     self.requests = {}
-
+    self.lock = Lock()
+    
     routerChannel = grpc.insecure_channel("localhost:50051")
-    self.stub = router_pb2_grpc.RouterStub(routerChannel)
+    self.routerStub = router_pb2_grpc.RouterStub(routerChannel)
 
   def _add_req_to_dict(self, request):
     requestJson = json.loads(request.info)
@@ -27,12 +29,20 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
     for request in request_iterator:
       self._add_req_to_dict(request)
     return Empty()
-  
+
+  def _block_until_req_avail(self, request_id, requestStore, backoff=1):
+    while True:
+      with self.lock:
+        if request_id in requestStore:
+          break
+      time.sleep(backoff)
+
   def RouteLastRequestChunk(self, request, context):
     requestJson = json.loads(request.info)
 
     # Ensure all chunks have arrived
     chunk_ids = set([i for i in range(requestJson["chunk_id"] + 1)])
+    self._block_until_req_avail(requestJson["request_id"], self.requests)
     while True:
       req_dict_chunk_ids = set(self.requests[requestJson["request_id"]].keys())
       if chunk_ids.issubset(req_dict_chunk_ids):
@@ -50,9 +60,9 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
     }))
 
     print("Sending response from server to router")
-    self.stub.ReceiveResponse(response)
+    self.routerStub.ReceiveResponse(response)
 
-    return response
+    return Empty()
 
   def ReceiveResponse(self, request, context):
     context.abort(grpc.StatusCode.UNIMPLEMENTED, "ReceiveResponse is not implemented.")

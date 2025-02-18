@@ -72,7 +72,7 @@ class Router(router_pb2_grpc.RouterServicer):
       del self.responses[request_id]
       del self.clientStubs[request_id]
       
-      return response
+      return Empty()
 
     def ReceiveResponse(self, response, context):
       print("Received response on the middleware", response)
@@ -87,7 +87,7 @@ def serve():
     server.add_insecure_port("[::]:50051")
     server.start()
 
-    print("Middleware Service Running on port 50051")
+    print("Router Service Running on port 50051")
     server.wait_for_termination()
 
 if __name__ == "__main__":

@@ -15,7 +15,7 @@ def serve():
   router_pb2_grpc.add_RouterServicer_to_server(SimpleServer(), server)
   server.add_insecure_port("[::]:50052")
   server.start()
-  print("Summarization Service Running on port 50052")
+  print("Simple Service Running on port 50052")
   server.wait_for_termination()
 
 if __name__ == "__main__":
