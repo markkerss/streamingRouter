@@ -20,11 +20,12 @@ class TranslationServer(ServerTemplate):
     return results
 
 def serve():
+  portNum = "50054"
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
   router_pb2_grpc.add_RouterServicer_to_server(TranslationServer(), server)
-  server.add_insecure_port("[::]:50054")
+  server.add_insecure_port(f"[::]:{portNum}")
   server.start()
-  print("Simple Service Running on port 50054")
+  print(f"Italian translation Service Running on port {portNum}")
   server.wait_for_termination()
 
 if __name__ == "__main__":
