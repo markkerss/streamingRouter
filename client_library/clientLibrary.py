@@ -23,7 +23,7 @@ class ClientLibrary(router_pb2_grpc.RouterServicer):
     self._start_server()
     self._port_assigned.wait()
 
-    routerChannel = grpc.insecure_channel("localhost:50051")
+    routerChannel = grpc.insecure_channel("localhost:50056")
     self.stub = router_pb2_grpc.RouterStub(routerChannel)
   
     def send_to_middleware():

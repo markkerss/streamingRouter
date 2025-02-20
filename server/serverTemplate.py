@@ -11,7 +11,7 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
     self.requests = {}
     self.lock = Lock()
     
-    routerChannel = grpc.insecure_channel("localhost:50051")
+    routerChannel = grpc.insecure_channel("localhost:50056")
     self.routerStub = router_pb2_grpc.RouterStub(routerChannel)
 
   def _add_req_to_dict(self, request):
@@ -20,10 +20,12 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
     print(f"Received data in server: {requestData}")
     requestJson["data"] = requestData
     modifiedRequest = router_pb2.Request(info=json.dumps(requestJson))
+    print("finished modifying data")
     request_id = requestJson["request_id"]
     if request_id not in self.requests:
       self.requests[request_id] = {}
     self.requests[request_id][requestJson["chunk_id"]] = modifiedRequest
+    print("finished admin work on server for requst")
 
   def RouteRequestChunks(self, request_iterator, context):
     for request in request_iterator:
@@ -48,6 +50,7 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
       if chunk_ids.issubset(req_dict_chunk_ids):
         break
       time.sleep(1)
+    print("all chunks have arrived")
 
     chunksOfData = [json.loads(chunkInfo.info)["data"] for chunkInfo in self.requests[requestJson["request_id"]].values()]
     del self.requests[requestJson["request_id"]]

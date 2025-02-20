@@ -13,11 +13,13 @@ class Main:
       simpleServer2.add_query(self.list2[i])
     print(simpleServer.run_query(self.list[4]))
     print(simpleServer2.run_query(self.list2[4]))
+    
     for i in range(5, 8):
       simpleServer.add_query(self.list[i])
       simpleServer2.add_query(self.list2[i])
     print(simpleServer.run_query(self.list[8]))
     print(simpleServer2.run_query(self.list2[8]))
+    
     print(simpleServer.run_query(self.list[9]))
     print(simpleServer2.run_query(self.list2[9]))
 

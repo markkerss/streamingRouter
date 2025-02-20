@@ -12,7 +12,9 @@ from google.protobuf.empty_pb2 import Empty
 class Router(router_pb2_grpc.RouterServicer):
     def __init__(self):
       self.serverStubs = {
-        "simple": router_pb2_grpc.RouterStub(grpc.insecure_channel("localhost:50052"))
+        "simple": router_pb2_grpc.RouterStub(grpc.insecure_channel("localhost:50052")),
+        "calculator": router_pb2_grpc.RouterStub(grpc.insecure_channel("localhost:50053")),
+        "translation": router_pb2_grpc.RouterStub(grpc.insecure_channel("localhost:50054")),
       }
       self.clientStubs = {}
       self.serverPipes = set()
@@ -75,8 +77,8 @@ class Router(router_pb2_grpc.RouterServicer):
       return Empty()
 
     def ReceiveResponse(self, response, context):
-      print("Received response on the middleware", response)
       responseJson = json.loads(response.info)
+      print("Received response on the middleware", responseJson["data"])
       self.responses[responseJson["request_id"]] = response
       return Empty()
 
@@ -84,10 +86,10 @@ def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     servicer = Router()
     router_pb2_grpc.add_RouterServicer_to_server(servicer, server)
-    server.add_insecure_port("[::]:50051")
+    server.add_insecure_port("[::]:50056")
     server.start()
 
-    print("Router Service Running on port 50051")
+    print("Router Service Running on port 50056")
     server.wait_for_termination()
 
 if __name__ == "__main__":
