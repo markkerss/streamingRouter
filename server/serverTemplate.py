@@ -11,7 +11,7 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
     self.requests = {}
     self.lock = Lock()
     
-    routerChannel = grpc.insecure_channel("localhost:50056")
+    routerChannel = grpc.insecure_channel("localhost:50058")
     self.routerStub = router_pb2_grpc.RouterStub(routerChannel)
 
   def _add_req_to_dict(self, request):

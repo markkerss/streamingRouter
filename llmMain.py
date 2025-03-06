@@ -4,6 +4,7 @@ from vllm import AsyncLLMEngine, AsyncEngineArgs, SamplingParams
 import re
 from client_library.clientLibrary import ClientLibrary
 from threading import Thread
+from datasets import load_dataset
 
 class Main:
   def __init__(self) -> None:
@@ -16,6 +17,7 @@ class Main:
     self.callsNeeded = 0
     self.callsHappened = 0
     self.callResults = {}
+    self.ccnet = load_dataset()
 
   async def generate_streaming(self, prompt):
     results_generator = self.llm.generate(prompt, self.sampling_params, request_id=time.monotonic())

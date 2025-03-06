@@ -15,7 +15,8 @@ class Router(router_pb2_grpc.RouterServicer):
         "simple": router_pb2_grpc.RouterStub(grpc.insecure_channel("localhost:50052")),
         "calculator": router_pb2_grpc.RouterStub(grpc.insecure_channel("localhost:50053")),
         "translation": router_pb2_grpc.RouterStub(grpc.insecure_channel("localhost:50054")),
-      }
+        "parrotserve": router_pb2_grpc.RouterStub(grpc.insecure_channel("localhost:50065")),
+    }
       self.clientStubs = {}
       self.serverPipes = set()
       self.requestQs = defaultdict(Queue)
@@ -86,10 +87,10 @@ def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     servicer = Router()
     router_pb2_grpc.add_RouterServicer_to_server(servicer, server)
-    server.add_insecure_port("[::]:50056")
+    server.add_insecure_port("[::]:50058")
     server.start()
 
-    print("Router Service Running on port 50056")
+    print("Router Service Running on port 50058")
     server.wait_for_termination()
 
 if __name__ == "__main__":
