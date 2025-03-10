@@ -1,0 +1,3914 @@
+
+
+Bonus:
+Your design should be able to support the following case:
+Adding functionality to the snake game after the game is already running is possible
+
+
+Anyone who wants to use your framework would 'pip install' the project.
+No external libraries are supposed to be used...all the functionality should be self-contained.
+
+It's not enough to create a deep learning model. You have to implement the entire framework in a way that is compatible with PyTorch.
+Include comments in the code to explain the changes you made to PyTorch (like adding/modifying classes) and how those changes enhance the functionality of the framework to support the task of building a game like Snake.
+Don't forget the file structure, installation instructions, etc. Tags:python, matplotlib, camera-calibration, opencv-python-Tlej
+
+
+Question: OpenCV in Python: how to plot Haar cascades?
+
+
+I've trained a Haar cascade classifier using OpenCV-Python (cv2 library) for object detection.
+
+
+I've obtained the classifier weights and the class labels.
+
+
+Now, I would like to plot these classifiers in a way that the x-axis represents the class labels and the y-axis represents the weights.
+
+
+Is there any example or tutorial on how to do this in Python?
+
+
+Additionally, I'm using Tensorflow for the object detection, but I would like to have a similar plot with the Haar cascades as well. Could anyone provide some guidance on how to do this?
+
+
+Thanks!
+
+
+Comment: The Haar cascade is not trained with a classifier weight, so it is not possible to plot the weights (apart from a histogram of the weights). However, you can plot the classifier itself using the `plot_cascade` function in the `cv2.jacobian_matrix` module. You can also plot the output of your object detection with Tensorflow using the `visualize_boxes_and_labels_on_image` function from `tensorflow.compat.v1.keras.applications.detection.detection_model_v1.detection_model_v1`
+
+Answer: You can use the following libraries to plot Haar cascade classifiers with their class labels:
+
+
+* `matplotlib` (Python library for plotting data in 2D)
+* `networkx` (Python library for working with complex networks)
+
+
+Here's a step-by-step guide to plot the Haar cascade classifiers with their class labels:
+
+
+1. Import the required libraries:
+```python
+import matplotlib.pyplot as plt
+import networkx as nx
+import numpy as np
+```
+2. Load the Haar cascade classifier:
+```kotlin
+# Assume you have loaded the classifier as an array of arrays, with each subarray representing the probabilities of a binary neuron, and the index at the end of the subarray representing the class.
+```
+3. Create a graph with nodes as the 10 classes, and edges as the connections between the neurons.
+```kotlin
+# Assume you have loaded the connections between neurons in a dictionary with class labels as keys and lists of neurons as values.
+G = nx.DiGraph()
+for key, nodes in neuron_connections.items():
+    G.add_nodes_from(nodes)
+```
+4. Draw the graph:
+```bash
+pos = nx.spring_layout(G, seed_pos=1000)
+nx.draw_networkx_nodes(G, pos, node_size=500, node_color='lightblue')
+nx.draw_networkx_edges(G, pos, arrowsize=20, arrowstyle='->')
+plt.axis('off')
+nx.draw_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+B
+Th
+
+
+M
+
+
+
+
+
+
+
+
+re
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1
+
+
+
+
+ Any
+
+
+
+
+
+
+
+
+
+
+
+
+
+-
+
+
+
+
+
+
+
+
+ A
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+ P
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_
+
+-
+
+
+
+
+
+
+
+
+-
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+B
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+R
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1
+
+
+
+
+
+
+
+
+
+
+
+
+S
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Essentially, the task is to design a deep learning framework (with APIs) for python. #include <iostream>
+
+#include "reader.hpp"
+#include "ioexception.hpp"
+
+using namespace std;
+
+int main(int argc, char* argv[])
+{
+    if (argc < 2)
+    {
+        cerr << "Usage: " << argv[0] << " <filename>" << endl;
+        return 1;
+    }
+
+    Reader reader(argv[1]);
+    reader.load();
+
+    cout << "Book Count: " << reader.books().size() << endl;
+
+    return 0;
+} // Generated by the protocol buffer compiler.  DO NOT EDIT!
+// source: google/cloud/language/v1beta2/language_service.proto
+
+#include <google/cloud/language/v1beta2/language_service.hpp>
+#include <google/protobuf/timestamp.hpp>
+#include <google/api/annotations.hpp>
+#include <google/api/client.hpp>
+#include <google/api/endpoint.hpp>
+#include <google/api/remote_operation.hpp>
+#include <google/longrunning/operations.hpp>
+#include <google/protobuf/duration.hpp>
+#include <google/rpc/code.hpp>
+#include <google/rpc/status.hpp>
+#include < google/protobuf/any.hpp>
+
+namespace google {
+namespace cloud {
+namespace language {
+
+namespace DetectIntentRequest {
+std::ostream& operator<<(std::ostream& out, const DetectIntentRequest::MessageEncoding& val) {
+  out << static_cast<int>(val);
+  return out;
+}
+
+}
+
+folly::Autodie::Pointer<DetectIntentRequest> folly::Autodie::fromRequestJson(
+    const std::string& json) {
+  folly::Builder<folly::None> b;
+  DetectIntentRequest::deserializeRequest(b, json);
+  return DetectIntentRequest::wrap(b.build());
+}
+
+folly::Autodie::Pointer<DetectIntentResponse> folly::Autodie::fromResponseJson(
+    const std::string& json) {
+  folly::Autodie::Pointer<DetectIntentResponse> p;
+  DetectIntentResponse response;
+  DetectIntentResponse::deserializeResponse(response, json);
+  return p ? p.release() : folly::make_only_one<DetectIntentResponse>(response);
+}
+
+cpp2::MessageBuilder* service::DetectIntent(::IAM::Handle* handle, folly::Asyncзнаkeit::SharedEventBase* async,
+                                             ::Google::Protobuf::Message* request,
+                                             ::Google::Protobuf::Message* response) {
+  try {
+    service::Stub::RpcCallHandler<> handler;
+
+    DetectIntentRequest *requestPtr = dynamic_cast<DetectIntentRequest*>(request);
+    if (requestPtr == NULL) {
+      service::AbortOperationException ex(
+          service::AbortOperationException::IOError,
+          "Bad Request - Invalid Request");
+      if (async != NULL) {
+        async->PostEvent(
+            ::google::protobuf::util::UUID(),
+            std::unique_ptr<constfolly::AsyncEventArgs>(
+                new folly::RedirectionEventArgs(ex, NULL)),
+            std::unique_ptr<constfolly::AsyncEventCallback<void>>());
+      }
+      return nullptr;
+    }
+
+    return &handler;
+  } catch (const ::IAM::Exception& e
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+P
+
+
+
+M
+
+
+
+
+
+S
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+C
+ Any
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-
+-
+
+
+
+
+
+
+
+
+-
+
+
+
+-
+
+TB
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_
+
+-
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+B
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+P
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+C
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+S
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+, a.,,,, h, p., p --- ru5- ?-, a. |. ?.., g7.. cab,,,. .....	.... f. p. .. ... â ?, p. d, f p bit with cre h.,.., hard, p, w..
+ c,,
+.,,,,,,., .,.,.,,,,,,,, h, b,.,, ,,.,.,. .., .... .,, . a.,..,.,,.,...., bu h..
+ photo,. (,, x., ... v,., a.:., a. a.,,, a, no,,,, b,,,, sl ch,,,,, rate.,.. end ...,,,.,, a ..., - ...., w ...  . h. .,,, ....,,, bo.,,,., ...,,,, -.,...,,.,,.,.,.,...,.
+
+-....
+
+.
+
+
+
+.,
+,..,...,
+.,...,.,,,. .....,..
+>	1')">., dream. -1. .. .	. .......)P
+. )
+1
+2 ... .2 ...
+02" .> - - ... |
+ -., ...C ---"23 $\Y ==	T .2 -T3 -3 - C ...	". != {" ...
+ ### "" | ... ->3 - ..	K3 ... -)	C		5 ...2. .a2 ..." \\1 -	". -- - .... ....	1 ...na, ""       , ~ [. -> <>0 ....--- - ":	================ -> -> -, - ... -> . --- --    ... -++ -> - |, - - ... - - .. - -2 ver \\] ... - --- - -> - .... ### ... -> - - -> {} --- -> - - "	 \\        - ... -- ->1	 ... * ... ...		 . ...		 - - ->	 --3 ... \\ .... ... -- ... ...	 ... . . ha ... ...		 ." ... ... ---1 - " ... -- ,,", \\ ... --- ... ... " \[ " https --- ---	 " -> " ..." ... ... -> " ... ->, ---� ... — -> ... . ... ... ..." ..."6\. -> "	 ~ || : ->" .9 != == ---2] ==>1" , /> NSLog4	6 --- .10"	", ... "A		", ->		", ->" ...." ---", "" ...2 . "-"	F0 " ###................ ./", "-	"] " ",	#### "" ... - ...	 .... } .... " < ... ... w19 " ",", ... ...	 ", " https ``" ",", " "", " ", ","+ " """ <-", " "," ", "". .... ", ..."## "0 "2"", . ", """ . ", posting ""] ", ") " ",6 ..."; \\ "5" ", } \\ "... https3". ""0 ", "------ ."" ";0" ] ... " ... ", ":",1" ","{""+". Develop2"". ."?," """"}" ") "" ...." """" " ", "," ""","," ", "1"",",">" ", ",0"." " ="" ->" ..3" .... "". . =>"+ " [...]1 By" \\" """"", " ...."""+" """" ; ": ...''" \\" ".""."."."" ..." " Hir"",", } """ ... " "," ."5" \[" ." "": " \\ "/" ."" ","                " https" ~ ...." """ "") " "; . ....8"+" ]" " """ " ." """". ordered ""] ^" "": " . "-" " "": .""] "" "": "", ... orders ." " .... ... "". "	" ... "	" """ ...
+, back., c. p. ? (...,..,,...,..,,? a, d ha,.,.
+ ... ... d- h..
+..- . # .,- . b...
+.”., a/ a d (,,,,
+. B by f,.. b, d,,,,.,,,,,.,,,,....,,., ( cont .,.,.,., c,
+,.,,.,,,
+, .. ... ... , ...,. (., ...,,....,,. .... d.,,.,.,..,,. .... ....., c., b.,.., b.,, pass . h,,,,,,,,.,.,,, a.
+,..,, ...,.,,,,,,,...,., ... b ...., h
+, b.,:,,.,.,,,,
+,.,.,,.,..,..,.,,.,,,,,.,. - b
+,
+
+
+.,..
+... class
+...,,,,,.,.....,,..... ...
+. ... . a
+.
+, .P. •. <. . -R. ....
+	.H-^ -yl. >-0
+",-1. |2",-R ,	 .-. x_. || .
+ >>>>†........ ,F ---B
+ ] Null --	H --- ---- % - - </ - ., . ... . - ... - " .... , ---- ---, -5 < -1 ...	 - .3	1 -2 po	1 - --- . -">3	2 ...) ---,	1	 ->	 -> -	",-		```   --		0 - -	 -........ ... -> -................2 -. . … -- - -5	 \\ .... -- . ->..." ... - ---"" - --- . ...") - -................ - -	 puts, --	 ... - - -B                 --- -	 --- ... ...	 ! - ... ...		 ... ) :) ...	 \\ > -	 ->	---------------- ---. --> ... ] ... -- - -> ,                 -->C - ... ....	 --" > :-)"	| - . -> --- ==> ->	 --- ~ --- - -" ... ->		 ->"8 ... -> ... , -> " ;	" ..." ---  --                 . " "0 view" ->" " -> ->	 --- .	 ...	 "; .	:"8 - ---1"(" -> -> `1"	 -> \\"	"	R	 {" ....The",	 ->" Nik0\ .... """". fire" —"	 "" answered -> " ---4 X "1" ... " \\ https	 ->" "6" .... ... .... " .... ... . ... ... ", ...",", ... --- alternative . " """6" "". " ->", " ---".", " "," " ") "", =>", ",	", ", ", "	.", ;1	 --> neither https ? " ", ... ... ... " \\2" `", ." \\ ...5"0" " """7	". ...." "" ... ... ... "</ " </ Nevertheless" ""+ "" """" """	" -> fo""5"". ",0"``` """ """## ! "" ":" "") ... " "," ." "''"," "," {{", ". ####" ".                 https" """ """ "," --- — ....3 ." [] "",	" ",0	" .... ","+ ": p""" ": """" ```................'' =""]"" ","" ,"+"" A "",":("" ," SO " ",9	 .... SA" "-------- ->"	"" """". ." " ||" =>" ":" ." """ ."" ." "	""]" break " "," https" ..."+" . ...", " .") "        {"" "" potential "": b" ." ..." "": " . ... "". ..." ... - . ... ... https . " ...""",
+- ?.,
+ bo..,.. ..,..,,.:,.,
+.
+ a ? c,
+  ?., he * justice-	,,.
+.	. -.... ....,. r.. bu, . kn d  c.. a
+ n.., h c., sl,.,.,,,.,.,,,.,,...,, a.,,, t, a,,., p .,,, .,, s,,, ....,,,,, ..., p, (, e,,...,., ..... p.. ., a.,.. @..,. .... ..... b.. c., [., k.,, a,,.,,,,,,,.., l,,... (,,,,,.,,, |,,
+,.., *.., s.
+, c,
+
+,.,
+,,.,,,,,,, ...,
+,,,,.,,,,, bo
+,.., ...,.
+.
+,
+.
+	.,.
+.
+,....,,..,,...,,.
+, ....,...,.
+. .> ... > ... … -.. . . ... ... .SB,B..   .0
+- ... !== ….... -2
+B.3 !5 .... ..
+.0	 .C https ....-		P st10.,"RT. -	2    ,", -T - -- -> - ....",'' x	 --- ... --> .... ...R	B3`}}
+
+2 1 ... ... ...8
+"			T		. =>, ....">2 -	"," -> ~-
+#### -" -|,#T ==, - ,6 "... ...1 -	 ` // ... `0 x	 - ...
+ - -> -2 --- - - - - ... ... - ... .... - ? . ... )B - - - - - - - "" - - , ." " ---	B .5	- ; - - -> --- - - ....	A |	 ->	,, ... ... ; -- ... — ..., ..." ...", ...		 .... ----------------- - ." ... ... ) -- surface" . -- "" - ~ . ... -> ... -> - --- help - -> ." -> "		 --> ||- .... = --- """ "## ---- ---	2 --- [...] ~1 ... -- side0      -> , [] --- A3	................ -> . ---	B1 <--D"	8		0.	 ~X	" {" " :##"			"" ...)	>" -- ")	", >""" -> """0 Ian	", " ...", sweet1 board "",0 <-" ... --- ... "" """ Retrieved - ... hum" "	1 "" --- " ... | " ---", ""; " ", ""1" "", ... " ", " ! | " ",",")" ``" " "", , " """ "" ""0" " "" "0	 ";" } --- ""0 ... " ") "". ... ... m" "", Just" .9 <-2 will " </"/> integrate .... ... Other"		</ "; """ }     0 "" `" ...("". <- see""" ->" ",................"" ", ", "< {"".": " "" " ",", established" ... } > """ -- []" "", " ", ";"," ",0"", ",", " ", ";", " Pe"```" ",", "". Please" ... "" """ """® provided "," ",", " =>" ","" ... ###" ..."+8""+"} ",""))"" ."", )" ""'""+" " ... "" meta" "," </ ." </	 ",	" \\"",6" ) )" ,", ....","6"/:"", ",""", )"2" ..."" f"" " """ "" "". } " ." . https" ." """ " ") "".00" " .".3" .." ! " https" .... ... "". "", Personal"		" "'
+, h.,, ..,. | g,......... no..,.
+.
+
+.  ...,, pr,,...-_. ..
+,.... ...?, a..., *. a : c, ..., sum,,, , h, {. ...,,, multi. an,,,,,.,,,,,.,,,, *, a, a, ., w,,,,, -,.,,,. ..., ... .. ...,
+., ...,,,,.,.,.. ., ....,.,.. a.,
+ ... d ....
+ S .. ... ... a, w..,,.. no a a cl ... a c.,.
+,,,,,, c,.,,,,,,....,..,,,.,,,, ..., st.... ...,,, ....,, ad., side [,.,,,., ....,,, featured,,
+, ...., ....,.,..,,,,,,.., ...-
+
+,.
+.
+...
+....
+. ...
+.,.,,
+....,.,..... su.. .....
+>- ... ....
+ … \\..ak g
+ >
+ . . >..C.Y - ...2", -|--2-1 >5T -3 ...1 -	>/ - ---	 "A - >2.....B "" .C, -	3J -", -	",1 - - - - ... ... - -> veg -B> ... ...7 """". @ ... " ";	 <!--'23 / ->	1 > ..2-O ---	"1 .0 ...P,", ->	], ->	 ...	 -> {" ,, - => -	 - -................ ....	 - -	 - ,0] -      2 -- - ... --> --- -> - --, - --- - ``` - .... .... \\ -	; -	-               . -    -- - - ... ... -		 >	 --- —R - ... .... -- ->, - "	 - ... ... -> - -	 ... - "	 .			K -- -- > .... --- -> - - \\ --- -	 - --                 - ..." ...." ...    | ... --- || ... `". … ->", . ---	 -- --- {" - --> ... -> - " .. ... - -> > ... Tr /// ...          ---[] ... " ...." ... ... " -> -> ... "Ber ~ ... .... ... => -> .	 -- ~" -	5 "6"	""	................ ` ... " ---T" ."AS" ---" ", ..." ---"2‐	................?" -		"+", "-	" */ ... ","+ ->" ":", p ... " "" -> ``` "" """ ...      ... ... \\7 .... """ ", "4	 ... // ... " ",", " ",", "", ", """ " ", " "*"", "B" " """", "				"0",    0 """ "	 ... ... />4 "" ....	 -> " ", "[ ... ....", "	" "" ] """ ", """" ... ." " ", ..." ... "........" | ... ..."" " `" "2" ", ../ surrender >		" jQuery9"")./" ... """" ""] ", ", ```" "", "," ",", " "-", "1 "", ." ")"+" =>" ";", ... ",," "" "", "". "R" """	1 "- .""" } ." https []"" """ \\ """ - """ ", ]" ] ."+" `"}' https .. ```" ...")", "", {""3 </" " ",""," "Sh }" ``` ... """ ." They "" https" "9 .") "	5 :="9 ";"" dark" "5 "" """ .1" "3"%" """", " .." " " ":" . " =" "@" "" " "" (" "[ "'). "", """ . " ..." ! "	" "" ... ." t ... " ..." ...## "
+### Understanding Gene Expression Data using IsoRatio
+
+IsoRatio: Forensic Protection for RNA-seq Data with Deep Learning
+=================================================================
+
+RNA sequencing (RNA-seq) is a powerful technology that allows for the analysis of gene expression across many different samples. However, the resulting data is sensitive and must be protected to prevent unauthorized access. To address this problem, we have developed [IsoRatio](https://missmarmalade.github.io/IsoRatio.js/), a deep learning algorithm that generates synthetic RNA-seq data while preserving meaningful biological properties. You can try it out at [this link](https://missmarmalade.github.io/IsoRatio.js/).
+
+How to Use IsoRatio
+--------------------
+
+To use IsoRatio, simply upload your RNA-seq data (preferably accompanied by corresponding samples metadata) to our web application along with any relevant parameter settings you would like to use. You can adjust the parameters using the sliders and text fields provided. Once you have configured your settings, click the "Generate Synthetic Data" button to receive your synthetic data file.
+
+### Paper
+
+* T. P. Yiu, H. M. Ng, K. Y. Yip, P. L. Zhang, "IsoRatio: Forensic Protection for RNA-seq Data with Deep Learning", \*Machine Learning*, 2022. (*under review*) """
+Definition:
+---------
+
+Mode of Action
+A field evaluated in the AdMet study that fell in the MedDRA High Level Group (HLG) PT categorization: Quick term.
+
+To assign the mode of action, search the MedDRA section for preferred terms in PT ('pres') or may be used.
+
+Keywords showing the way important mode of action.
+           MedDRA section, section terms associated with the nature of the adverse reaction or toxicological effect
+
+Simple relationships: 
+              section terms section group
+-------|---------------------|-----------------------
+
+        from               {MedDRA section}            {MedDRA Section Group}
+
+Adverse reactions are categorized groups
+           anti inflammatory
+           tremor
+           arthralgia
+           convulsions
+
+---
+
+Forced childbirth from side effects of salbutamol, terbutaline.
+---
+
+Medication. Forced childbirth from side effects of salbutamol, terbutaline. Decreased intensity, frequency, and number.
+Salbutamol was administered over a period of six months via metered-dose inhaler.
+
+Administration of terbutaline reported to induce withdrawal bleeding.
+
+Treatment of myocardial infarction. Lamotrigine reported to induce hormonal changes, seizures, and rashes.
+
+---
+
+Echinacea side effects noticed.
+
+Ibuprofen causes pain, fever, and inflammation in the intended use.
+---
+
+Forced childbirth hazardous to salbutamol, terbutaline.
+---
+
+Salbutamol
+Administered AeroChamber® trademark spacer device as free base salbutamol and formoterol or salmeterol or as terbutaline by MDI.
+Seen with asthma and bronchospasm and as prophylaxis against asthma in children. Approximately 40% of individuals were affected.
+Forced childbirth reported as a side effect of salbutamol.
+The FDA: hazardous to salbutamol, terbutaline.
+DEPO-Provera® and salbutamol effective under Superlative® Meter-Dose inhaler
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+S
+
+G
+
+C
+
+
+U-
+
+R
+
+P
+
+
+
+
+
+TF
+
+
+
+
+
+
+
+.
+
+
+P
+
+
+
+
+
+P
+
+
+
+
+
+
+
+ V A.
+
+
+
+
+
+
+
+
+
+-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ adm
+
+
+
+
+
+ .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ....
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+R
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+. comes s. a, e a, ... h enough U, p.,.
+, ? .,. long | p ?, call F,,
+ . a,,,
+,.- --.,, - v,..,..,- glass ch. ... .., m.,,
+, i., b, b,,,...,,,.,,,.,.,.,,...,,,,, d,, g,, -,,.,, b. -,., ...,...,, a..',. ,,,, . r b .....,.
+,..,..
+ . ...,....,.,  ...,
+ four multip d.: (,
+,, -- a, bu, A,,,,,,,,,,,.,,..,
+,...,.,, a street R., - b,,,. ... -. a, a.,, te.,,,,,,,,,,, … a,,,, ra,,.,.,
+,.,,,,,.,, b.,,
+..
+..
+
+...
+..
+.
+
+.....,,.,,....,,,.....,.....
+... c0S socket .. .. ... .	2
+) ..
+3.' ", .. ... .k	
+
+14L -. -(...) .
+-> - > ~.	........� -- .	E ,	".	U. . ---2 ..CE. ### . - . ||
+	   03R - - => - ... - - - value2
+ -	 ..>
+1 """ => -3 ... ...2_x23 ... ... ...0 - , ... - - truth2+ .... --- --->	2 ->/		)) - Develop ->    -> , . \\ - --- -> .... -................ - h / - ... -> - - | ---	 ... "" -> | - - ...1 -- --- - - < -	 --- --- . - ... ->. --- -> \\ -> .... ... - -", ---	- - ... ... - - // --	 - => - really < ...you                 .... . -> .... --				 .... ; ... - ==>	N] [] ... ... -",## -- .."" ... ... -> --2- ... - -- .... ... .. ... ... --- --- --	 --- ... ... => --- -> ...	" " ... B "" ...4 --- - "" "## --- --- ---" -" -> ->70 ->"" > ->"] - <> " -> . --- ->"     --> . .	2"1 ...5""		1"Pr " ...			 ": " ", .H88	"+" `""", ". ... ->" """	" " "," ... "0 ", ---" " ...	 =>" ... ... "0" ... ... . | ... ... han ... .5 "" ... ....", " Click" " ", "" "" "", """" " ...", ","">" ", ... ",". ... c"	",". ....3"." ... "; ... ";5" "	 ... --- aff "." ... Her" "", ." "" " ... """ ...""` } ..."\ September		 """1" . "["	" ", ", ... ...." }	 """ ...1 } ... "2" <," """"] A" ", "- ""] "" ", "", "". ... ","",".".", " ","", "," ": " """, " However" -- "", ... " ""."." This" ."" ") ..."" ``` \\ .". `5",)) ... obviously "" associate" ...". " !="")"" "":" ") ",12" ","+" "9 " \\ " "." ." ":" ." PMID" ... "'") ." ""+"2" } "9" "," """"1""................" ..."" )" ..."3" rat " PMID" " Please """"7 " "." ." .", """ " "" """"" " " "," " ... " .. \\ ." . ."0 ... "". "" ." .""""
+ment. h.,' .. .....,. ,, robust..-. slow . card b. a. pra a. b.,.
+, obvious.- .. .,...,  ... \\ ... ( d. . a. > p / ---., h, y c a.. !, ... p., b, ... , be,,,,.,, g,,,,.,,.,.,,, ...,., ban,, hand,,,, > multi, t,,., a. bu,.,.,.,.,, ... ...... ...,,,, da., al...,, h.... date.
+., t,,.. a a . (,,,.,,.,. s.,..,,,,,,,,,,.,,,. d.,...,.,, ..., ... ...,, -, a,. ...., .., b.
+
+ a( a, ., ... ., ...,,,,,,,,,,.,,, ..,.,,,,,,,,,,,.
+.,,
+.,..
+.
+,.
+.
+...,,.,....,.,. (..,.,...
+. ...
+K5 a, ....'..
+8-.
+ --. -1	.B. T, .
+ ....2 ...1.2 - - | ... -> .
+T -P |
+,8 - <................	 :)	[N1 -P'''KKA est"{"                 -2 and",O -- ==> - t - -", # .... --> .... --- - ...X -23"0 ...	 ...>
+1 ---1 -32	-> ...1 -      - -%
+---0",0 ...2 -	 ...-4 SundayI ; -> --- -		] --- ...	 -0 - ... -- - -0	 -- ... -	 - The ... \\ - -	 - ~ .... ....1 - ... - "## - - -. -> dare - - - lean, - . - - ... - ... :) - — - - ... - . - -> - --> - ... --- - - - -> --- > ---                 - " --- →	 --- >{"                 . , -	 \\" --- ... | ... " ... .... |" //,4 . r ... ... "- - --- => .... "". --- ... ... ... … } .... ... -8/' --- ... ... " -> --- "Т .", . .0 "	" ", ~ ---31 -> .... < ] ... ->    1 .0 \\		" "�� ->"" ` "	 ...." "	" ### "" ." =>    " ---"		 ---" ", --- ...5 really . . ... --- >>>" Of	 Death ``",	"">                 ! ... " Pak ... --- -> " ... ... ...8	" ... -- {} ... ... ... hundred ""	",") ." . """, "); "/" "") """ " " "; "". "". ",", "." ", "," x" desar" ", ",1                ", "	9 " "" .... ... "" ... ."; " ", ---	:" "	"," .... ...1 gem" ... "- "	 ... ", ...2" ... " "	". ### ``` """ """ , --- []2""2 """2" ."7"2" "-". "" ")) " ", "" ","+",". ":" ", ", ";"". "1",", ";" nad" ", ",." https "". " ", `""," ": #0"2" """ % Tr": Not "8 '' ### "" ? ", " .... ...." NAME """ " ")" пра" """" ### </6 """"""+ ."", else n" }" Carol " ": PMID """ ": "+ ." "," . > "" " ". " Aleks ."" " "; ")0" https"	"	7"," ") " {" " """ ...", . During "")".1" ... \\ sar ``""" ..." "	" """ | "$$ "". " ", ." .'' ... "3 ... " "" " ") "	" Other ..." . "".""".
+
+.,. Thank.,.
+, ( h.,....., c
+ a ha.. .. I . back,..,, cry,.,- a...(.... a...,, a. ? p.. p dis.., .	 char or c s b., c,, ., b,, .,,., ,.,,,,.,,..,.,, a, ...,,,, mus,..,,..,,.,.,, ,.,, …,,..,.,. c,.,., ab.... .,..,..,......
+.. h, ,,, rit, a,,, b. h.,,,,,,,,,,, -,,,,, -., a,. ..., r .... ,, ... ....,, ...,. .....,. ..., c, m.,
+,,,.., #,,,.,,,,, -.
+,,.,.,,,,,, b.
+.,.,
+.
+... ...
+...
+
+..
+.
+,,.,.....,..,.
+......
+.. working ... her U ... ...0.
+ .... . --
+ ..... ----." -.-x1iv .
+ ---, ...N3 ...1 httpsX0
+	32 --
+ -", .... --0 - - -> Theater>F
+P. .Wtr ....1.B .		CN
+", - -5 . - ->" { - x -
+",3 --C . | - - ...	0C - " ..... a - ...1	< - B -" \\ .... - -21 --- .... "" ... -- ->	2 . .2 "" ....E ->1	", -> --- -- - - meaning - ,",	 -	 ---12 - - - --- |	 --- - -> -1	    		 - ... ... painting .... ... - --- -> - ..Л -> --- https ... ^ -, - Alex - - ... , ... , ... -> - - ... \\	 ---- view	1 -	 --- ....a --- - ... -> ==		"()", < ... ,, ... - .	 ->",	 ... ... - ... --- - - etc0 . ... --- ... ... -- ...    ."; ... ---                 Dr	 ->"" ,	 --1 ... ...">", ... . -- Saturday --- -1 --- [" "." :) }L-   		 \\................ p	1 ... >>>	", .. .2" \\ --- " . `""	 --	 |\" ###     .... "", ....	""	" ###"//................" ....", ---", ###"	", " . ".	"," ~0 [] ...2",	 "[ ...	" ... "" ") ! - ..." \\ ... " ", || ... ---/' Le1 """ -> "7 ... -->" --- " ",". ""]", --- " ", ", .", "," .";" ",", " Connect " """" ###The call" ...", ...2 }	 {" well " ", " "; … "" ... """ "". .... /*" ": """5 \\3" . "" "2" ... ... """ ... } ... ",9" "," "" ```" ---0              ." ","] From2"2" ###" []" ":" "")" "", " ", ", ). "", """" ", ", """ " ", ....".6" ", ="", " \\", " ... """ -> "" c''", {"". ``` ""; ->"". Bro ``` PMID" " ellen ->	 {" % ... .... ") =" " PMID ``## """ ``` }""""" \\" https"['" " ... clarify" ", cell """" T " " ""	" . https" often ) "".	"2 " .")	1" [] " AB"�""+ ]""" "] " "," """"	" .""." "7"" " ")" \\ " """ .0" "5 " ... " "". ...." ." " ... ... " ... ..." . " ... "2" "". ...""
+c. ... b, s., d,...-6(. c.6
+....
+.. le. h.. her Barry.,._.:.., .... |.,., h...,., a, r x..,,' c family. ger..., mar, a,
+ [, bog.,
+,,.,.,.,-,,,,,.,..,,,., d,, d., ..., ...,,. [., a,,,.,.,, R (., (,, g...., c.... , ab. (.,,,,.., .,.S,.., a.,.,,. ... h.,,- a, a c.,,,,,,.,.,,,,,.. (.,.., no,.,,,,.,..  a. ..., s, b a, d., a,, ...,, ., ...,,,,,,,,..,.,,
+,, air,, c.. .. ...
+ ....
+..,.. ...
+
+:.
+..
+. (...,.,,
+,..,,..,,,....,,...
+8 ..... gra0 dens   ... .
+ - - .. ,. boy-S ...", …1\\ -1 -1 - - |1 -', < x \8 -	R .... - -M. https ....T ...1 -5	5< ==2 ale -
+	2'' -'' -< - ? -( >>> -8 ---................ ... -- |	 c - -> >""..." ... ""3 -> | ...	 ....	222 ---1, -"A - > ...2,0 -hell ---",``` -- --> ... .... - $,} -	G - -> PMID - --- > -	 --- ... --- - |-	 .... - - > - |................	        -	 --- --- ---	 - -> . ., - - ... -	A .... - — - - - ... -C - - ..."" - ... -	 . ...	  - ... - ...	 - ", < ... - .. "+ [] .... -> ---, mat Cape ... .... ",|S - .8	 .... ----------- .... - ... -	 ...." -- https .... ---	1 ... ... . --- - .... ,0 --- --- -- --- "; >" ... ... `	." " ...) ... -> b" * ... - ->.	 ---",1 |                " | B1 . -> """1	1 " ",	 ...    ==>	 .	6"] -		"" .	1"> !",        ...	", ",",*/	//", []," ..."", ``" ("........ !"8 .    ...9 >" ->".11" ";8" ... However5 "6 \\ "" "", ... ... .... "	," ...", ..." ... .... "", ... "0" ", ""] """ " ...", " .. "", .... ""]	", printer," ",		", " ", " "," """1 "; found " aa [] .. """ ancient " ] ": """ ""]" "................0 ""0" ." ... .... singing" ", "" `" """ ... ... Note .. } -> ... "", ": ``` []"5" ..."] https0" """]2" \\ ""] "", "" sn" "", ""). } "," ",".", ->", "". ..." ";" "," """, ... ", XX" , "" - " ", ", " )" ",""" https --- "1" "-". ....         https2 ---" faith" }"" "-"+ "."" ." =>" ", """" """5" . zam" ", > <-" ." Ill" " ." ." """ " | " incorpor "" "8" ." Remember"]" . https" .""":"2" ")""0 """ .66" ... ""]" ... Limited ... " ""]"8" "". .... != "."" ... "0" ... "": "": |" " " ... "", ...1" ... "". "" ... {""." ...
+
+
+Your task:  
+Task: Write a deep learning framework like PyTorch
+
+Files:  
+File: deep\_learning.py  
+File: layers.py  
+File: network.py  
+File: optimizer.py  
+File: init\_network.py  
+File: data\_loader.py  
+File: model\_checkpoint.py  
+File: jobs.py  
+File: examples\_util.py
+......  
+
+APIs:      
+deep\_learning.py:  
+Code:```{Code_for_API}```  
+
+layers.py:  
+Code:```{Code_for_API}```  
+
+network.py:  
+Code:```{Code_for_API}```  
+
+optimizer.py:  
+Code:`` \*-f#[fw]
+
+```
+data EZS
+import Foundation
+import ThreadSafe
+import Std
+
+#[bind]
+let config = Config()
+let dbConnect = DBConnect()
+let logger = Logger()
+
+extension EZS {
+#[fw(type = "sqlite3")]
+let db = SQLite3DB(config.dbFilePath, onUpgrade: config.onUpgrade)
+
+#[test]
+fn init_db() {
+let r = try! dbConnect.connect()
+if r.isError {
+logger.error(msg: "连接数据库失败：{}", r)
+return
+}
+defer {
+try! dbConnect.disconnect()
+}
+let r = try! db.exec("CREATE TABLE IF NOT EXISTS ezs_user (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)")
+if r.isError {
+logger.error(msg: "创建数据库表失败：{}", r)
+}
+```
+This code snippet is written in the Swift language and it encapsulates the code for the database connection and initialization in a module called EZS. It uses the SQLite3DB package to initialize the database and create a table for storing user data if it doesn't exist. It also uses a configuration module called Config to store the database file path and an onUpgrade function to handle database version upgrades.
+``` namespace PHPExiftool\Driver\Tag\DICOM;
+
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use PHPExiftool\Driver\AbstractTag;
+
+/**
+ * @ExclusionPolicy("all")
+ */
+class InstrumentManufacturer extends AbstractTag
+{
+
+    protected $Id = '(0054,0010)';
+
+    protected $Name = 'InstrumentManufacturer';
+
+    protected $FullName = 'DICOM::Main';
+
+    protected $GroupName = 'DICOM';
+
+    protected $g0 = 'DICOM';
+
+    protected $g1 = 'DICOM::Main';
+
+    protected $g2 = 'Image';
+
+    protected $Type = '?';
+
+    protected $Writable = false;
+
+    protected $Description = 'Instrument Manufacturer';
+
+} namespace Sonata\DoctrineORMAdminBundle\DependencyInjection\Compiler;
+
+use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+
+class RegisterAdminCompilerPass implements CompilerPassInterface
+{
+    const ADMIN_SERVICES_SERVICE_ID = 'sonata.admin.services';
+
+    public function process(ContainerBuilder $container)
+    {
+        $adminServiceDef = $container->getDefinition(self::ADMIN_SERVICES_SERVICE_ID);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Fe
+K
+C
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Did
+
+P
+
+
+C.
+
+
+
+R
+
+-
+	
+
+
+
+
+
+
+
+
+
+
+
+A
+
+I
+K
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ P
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ l
+ t
+
+
+
+
+
+
+ A
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+R
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+a, a, a
+, a., -.....,, -.
+.
+
+
+- emb
+., (...
+, h.
+.. ;,.,,......., :.
+..., @ y a p c des,, even,,.
+, ph,,, ., t.,,,,,.,.,.., ...,.,, e,,,,,,, His, mos-.,..,.,.,.,,,.,.,..,,., d.,., p...,.
+... .., r. — ( ?... p,, d., h ? a., a,,.,,,,.,,,,,,, a,,,,.,, sil..,.,., ...,.,,,,,,...
+, d. -.
+,, a -..,, al.,,,,.,
+.,,
+, ...,,
+. ...,,,.,,
+, -,,, h,.
+ x.
+.
+.
+.
+.
+..,.
+,.,-,.,,,....,
+.,,,.
+.
+... bu.U. ....0., changes -
+ ...> .....	.	 ...B21 ...35.2
+-
+ d / - - - ---- ....   AL1 ". ---- air2	 —1 .... -T
+KT -",1 - ---" - - whole - -", -23 .. ""5 -- - -> beyond -B0 ... - ###
+P" ||2 ....2 >>> -3 - ...1	1 ...	2 -1"1	, \\1, "" , {}	##		 |",->	 | - -- --->. - S - --- --- - - - - - Le -->, -";> :: - - - .... ,1 ... - ... -> ... -- ...	- ... -	a --- ... - --- ! / -, - - -- ~ --- --- ... - / --- - -- ... ... - --- -	 -	 - -      - --- ->```	 --- - ... - ---	 -- ...	 ->	""	 ->' -- - ", -- -" -> ... .	 ... " ->"	 ... ... .... --- -> -> . - ...	 --- " --- ->2" """    . .. -> .... ",	", ... ---0, --- " -- --- hero .5 ... - lengths . --- ...." ->--- ->        ->1 Philippe" )", "3 n" ....	5		9 design1 --- ...   1	 ... "	A"	"1 ---	 "	" ...	" ...", "-	" "", "(*)["/-	",	" ...00 ... "",	рист ""      https ... --- -> "0 ... ... | .", ... ... found ---................ " "" ... " ") .... .... "	 "@", " ",", ... " ";1 "- """", " ", ",", "",	2" "---------------- ... ... siempre" \\	 " ": St ""2"	 ---". ... "", . "". ":,, "": """2", """ ... "1" )" ``` """ ";	 ### ... || ``` The "" """"вест"	" ``"G" ", ...##" ",	.",нача \\ " ",", ") """", ", "". "," """ " okay"..." ("", ")()"". """ ", "", " ","] ", ", ."+"+ """ "" ..."" -> i" </              " " . """ \\" " https"] " {" """ ->gy """" </" ..." "," } --- ak ")2 mid"" filled",IST""? '"" }" " "	" ." https"" ... " stated "" ",5 <,"7 !==" .") ." . ."	"	" ""................"" (" \\"	" "-" " "") "	" "", "0""." ... . boats" "2" "": "". .." ..."] " . ... " .... "". ... " Hoch .." . "" "","" .
+, p, (,...., a,...,...
+,. |
+ from a =,, perspective se, ?　,., ... l n ? . .
+, ~. >
+............ her da., te bi...,.,,,,. incorpor, a, ... a,,,,.,,.,.,,,, a,,,,,,,,, most,,, back,,,
+ [,,,,,,,..
+.. ....,,. f a [,.,,, (..,,...
+..,,.,. special ..., d. .... a .. ... p. ., a, c b (. ( d,,,,,, a,,,,,,.,., b..,,,,,,,,,,, ..., ,,. one. ...,,
+ . e., g. s
+ h. ... an,..,,., ...,,,,..,,,, ...,,,,,,,, ... bu, back ... h., bass g ... r..,
+...
+
+.
+.
+.,,.,.,,.,,...,..,.. .,...
+sound	. ... ..V . - ./	 -- >..B. ...2 --2 ... - ... dok-,2 -.2, --D
+0 --			 ....
+N |.B --.() ,1
+ -2.
+C2 -"".1 or l # - -    -0 - -"	 ... --2 is = -20 ... ....22 …
+ ...		2["E2 --> [],1 ,; ->Sk - ?1]] - - ..	 -- - ->,- ---.. .", ==>	 ....6 [...] - ; `` - ... | ...	 --- ... -	 ... ....	, . -|	 <> --- ...	 .... :" ...1 --- - - .... - -- =		 :) -- -> -- - - ." -- - - . -") - . - ... ... ... - .... - ... \\-    -> ... --> ... — - --- ." .... .	    --- - /	'' -	 ... - .... --> ..." }> ... - --- - "- . ... ...", ."> hun ... --- / . --- ....	" -- "	" \\ .... -> --- "%% . ... ... -> -> ...8 ....9 / Studios " "," ... ", ---, () '' ->."-> -	 ``` .	"" … ->" -> "1 ... -> 		 ", ---	23	14" ... ...	",	"................ ....		5	" ->	" ";"	" "+ ... -> h4	1 "*	(" , ->0 ... "", " {"1" \\ "5" "" best1 . ... ...1	 ... " , .	", "," " ... " "" ",", " ", ...." """, ""? ... ""]" "," ", " ") []" "+0" ", ", --- ) "¦ ` ---1 --- ") ! " ... [] " ". "- ....[] . "2 ... "". "## "3" \\" ... ... ... " . n"1 ... ... sad" "... ". "	".",`` ```0"0" }", "," ", ->" .... ", '""+ "," " """ "" " ", vy" "" ", ... ... ", ",2" ",""."]". """{-"." "", ", """", " """" )" ...." format [] """ ", "⇒ "" .... parfois`` https -> Y": """" ") :=""" "。нер """") """""4"+" )"", . ","", } . O" "- "" "": \\ "",2", ... "" " ")" https" " .." https " \\" ." ","", " https"+" ":" .. " ")" ." "2" " ")" """ ." "6""" " {" ;" " ...." ". exposed ." "." ... "". ...", "'' ... " ... " ... ... " ... "," ... Contact " ."	
+, a, #, ( blank, y.,...,.,.,
+.,,.
+ |...,
+.( w2 future
+ a h ,,., .... ... -, a... ....,.... r -,, .. ., a., bo, b- s n, c blo,, - b,.,,,.,..,,,,.,,., ...,,.,,, -,, . …,,,.,, .. ... a.,., y, [.,,.,.,...,..:,,..., a,,. This.. .... is (..,.,, .,., a...., a,,,,,,,,, no,,.,., a, a,., b,, ,,, al.,
+,,,,,, - n,.,,. ..., .,,.
+,
+.,.,,,,,,,,,.,
+,,.,,, over,.,,,., a.,.
+.
+..
+.
+.
+
+...
+..
+,,,.,, ….,.,.,
+.,......
+...+ ... ....... -... fab, . -1. -.
+O -2 ...
+TS. ||- ... --1
+0 -X -.D .... ...................), -- == <- ... ,R
+	B -- .... -2RB"R 2 --,"P.R ... => -	1 -1 -
+ - -> -
+ .	 - By	--- b	A ...3 // <>	
+R1
+2E ... - . ...31 -2 --w- - -- --- ~- ... | ... ->2"" .... ""> ... -		 ....	 suas		 -	:)	1 --- ----	, - ... - - ==	>, ... -> -	 - — --- -- -- ---- - ...",	      - - | ... - .... --- => --- -	G --- ....	 ...	] --- - - .... ...	 - "" ... —    - ... ---		 --- ", · -> - ..	< -> -> , -> // .... ... ... * …,, ... --- - …" . -", ... - "." --- ... --	 -> -" -> ...	 — => -- .... - -> - ... ... --- -- ...	 \\ \\ -> -> -> -> ....2 ..." Si" -> <- ... .... "	 The	' | --- ->() ->-> closer ->	................ """ > -> " ->. --- ->1 company --- -> => -         |"1 -"0 .                 .	 "M	 "Put	##" :) ",------------"'	## page" - " ",	"			" ... X """	" () .../" "", "	5" ... ... ... illegal `` ... " ... ... """ ... ... ---" ... "", ]", ""] <", "	", .... ". "". " ") ... ... < ", ", ...) "	", H" ==>5" ",5 proved "	". ---818	 Mo" () --- N8"", :"" "2" .." ";5"". \\"1" ... } " ="" ": ... ... ",", ...". ... {" "-2" ...	""1 ""]" "" ":"? *) Source""]'' ..." """) . ", "". " ",";"". "". " "," ".", "".".")", """] .". "," .." Similarly" "- " ..."--" " """зва "- https" "Message "3". > --- ." assigning "<"+ "" %%9 """,", """""" dearID", ""," "". , "+" "-" However """"" " "* }" ... , " ]6] """" " https"1" ... https }" https of"":" @">""] ... ": . ..." ) '' ""."+"+ '"" "">" """"" ...." "", "". ":" ...."" "" "9" The "" "": .."бу "	" "": " .."" ..." .... ... " """ S
+, a p.,., a se,..,.. ?.,.
+,.:.., ?, (, broad a. ...,,.,- -,.	.,.- - ?. .. a).,
+..:..,., . a, h, our ., a. i,, v,,,,,,,,,,,,,,,. f,,,, a, a,,,,,., h,,, ...,,, . -,..,,,..., first M (..,..,.,.,., a. >.. ..,.,
+. th.. but......, ... p.,,, h f. c d.,,,,,,.,,.,, n,..,.,., a,.,.,,,, ... ...,, ...,., d, #. * ... a
+,,,
+, b,.,,,.,,,,,,.,,.,,,.,.
+, ...,-. a,.,,, g.
+ ..., b..
+...
+
+
+.
+....,,,.,......,..... -....
+.N.1. ......
+
+( >	B g5 .
+.
+^S.
+P2-
+-&0
+
+20> joy name - "A -0_E .T
+P - -	B0'	X ...T || - -() -() / -- .??? != . When - ....	 - | "" -> ..
+)	B ... = -. \\ ....222-	-a ...3	2 .> ... -62 - ... --D vor	 --- ... ... ...",5 . -	/* ...0	-> -1-1 -> - -3 ... -", - ... --- .... ---4	<8 -	// - | body --- ...		 - / .... ... - ... // .> -- -	 - --- ->	 - -	 --- .... ....	 --- -3 - --- ... . ...	 f >Complete .. —	 -> -C == - ... - --- ... ---5 -- >", ... --- | .... —    	S ... . -" \\ … "" ~" ... --- ---- - ... - ... . ... ... -- -> --- - fost", * --- ... . ... ~ ---- ... ---" ... ... ---.- -> " --> ... "1 ""	>" ." ...."9] ... -> -> . -> ...." -> "1 ...	1 -> ...2, 6-1 ;0 ... ` ....-> . -> ->1	" "	 ---	" ... " Living"2"", ""; .0 "9	81 "-", " => "", ... " /> ... "".1 .. " Release ...4 .... ..."+ ... --- allow J" .. ... ",	" ..." ... " ... ""5                 " ", " " ", "; .... " ")") ","","] ... " ")" "- -> " "; """       	"]" "" ==5 pdf" ", """"+" "" " --- ->" b" "" zero", ." """" ""1" ...", AB ... . similar" ... "," ... \\" "); "" ``"+ {" """remote2 \\" ""	" ",") ,," ``"; ". ":5""] " Our" "[" ":" """ ", " `` "". ", ...", ",6le"", ","" ":" ", "" " ": " som" "" "##"". " PMID" "".¦" "," ": \\ ``" ... ""; ###-) "- ": ."+ \\" ": ### ```" ";"]" ..."+"+" ." " """"", """+" ale" wa"", "," :" M................") " ") " https""]"	" ",2 Mich")1" )" ." """" ")" ", Initialize"2"6""", https ...."".2" "". ", ""+" . "-" https .	 ." "- "" .." " "'' ")" ")" "................" ... c ." ""] " .... ..."" …"", ""
+
+
+All files should be listed in one response in the format provided. ### END OF lintcode.py ###### BEGIN: DO NOT MODIFY THE CODE BELOW
+
+def add_two_numbers(a,
+``` 'use strict';
+
+describe('add_two_numbers', function() {
+
+    it('should add two numbers together', function() {
+        expect(add_two_numbers(1, 2)).toEqual(3);
+    });
+
+    it('should handle multiple numbers', function() {
+        expect(add_two_numbers(1, 2, 3)).toEqual(6);
+    });
+
+    it('should handle negative numbers', function() {
+        expect(add_two_numbers(-1, 2)).toEqual(1);
+    });
+
+    it('should handle zero', function() {
+        expect(add_two_numbers(0, 0)).toEqual(0);
+    });
+
+    it('should handle negative zero', function() {
+        expect(add_two_numbers(-0, 1)).toEqual(-1);
+    });
+
+    it('should handle undefined input', function() {
+        expect(add_two_numbers(undefined, 2)).toEqual(3);
+    });
+
+    it('should handle null input', function() {
+        expect(add_two_numbers(null, 2)).toEqual(3);
+    });
+
+    it('should handle negative numbers', function() {
+        expect(add_two_numbers(-1, 2)).toEqual(1);
+    });
+
+});
+
+####### END OF lintcode.py package com.azure.data.spring.contextprotected.config.web;
+
+import com.azure.data.annotation.ContextProtected;
+import com.azure.data.analysis.Analyzers;
+import com.azure.data.integration.config.settings.AnalysisSettings;
+import com.azure.data.integration.config.settings.DefaultValues;
+import com.azure.data.integration.config.settings.SettingsBuilder;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration(value = "analysis-settings")
+@ContextProtected
+public class AnalysisSettingsConfiguration {
+
+    @Bean
+    @Qualifier("analysisSettings")
+    public AnalysisSettings analysisSettings() {
+        return new AnalysisSettings()
+                .setDefaultValues(DefaultValues.getDefault())
+                .setEnabled(true);
+    }
+    
+    @Bean
+    public AnalysisProtector analysisProtector(@Qualifier("analysisSettings") AnalysisSettings analysisSettings) {
+        final SettingsBuilder builder = SettingsBuilder.create(analysisSettings)
+                .setEnabled(true)
+                .setAnalyzers(Analyzers.ALL);
+
+        return new AnalysisProtector(builder);
+    }
+    
+} package eu.kanade.tachiyomi.extension.ptbr
+
+import eu.kanade.tachiyomi.source.model.Page
+import eu.kanade.tachiyomi.source.model.SChapter
+import eu.kanade.tachisyomi.source.model.SManga
+import eu.kanade.tachiyomi.source.online.ParsedPage
+import eu.kanade.tachiyomi.source.web.CoverImage
+import eu.kanade.tachiyomi.source.web.Url
+import org.jsoup.nodes.Document
+import org.jsoup.nodes.Element
+
+data class PtBrRssChapter(
+    val title: String,
+    val url: Url
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+P
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+S
+P
+
+
+P
+F-
+
+D
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+O
+
+A
+
+
+
+
+
+
+
+
+
+
+
+R
+P
+
+
+B
+.
+-
+
+_
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/
+
+
+
+
+-
+
+
+
+
+
+
+
+..
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+...
+
+
+
+
+
+ M
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+,
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+P
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+s,., , p, ... is, a, a, about.- ..,,
+., p h. | .,..,. w many
+.,
+,.
+, ..., [...]....... . h a.... c n.,, g.. e h c.,.. .. ban c,,,.,-,,,,,-.,,, (,, ..., within,,,. la d.,,,,..., -., h, a,,, .,, bott [.., (.,.,,.. c. <
+., a.,....,. ,,..,, h.., b a,.,.,
+,,,,,,, cr,,,,,.,, common,.,..,,.,, so.,,, .,, .. ... b... e,. , da.:, a .,.,,,,,,:,,.,,,, ...,.,,
+,
+,,,,,,
+.
+ ...., cloud c.
+.
+....
+.
+
+
+
+.
+.
+.,,,..,,..,,,..,.,......
+...
+ ...". ...A..1. .
+.
+0. .1 . ---" .                 ...",
+-1-8 -- -2 h1	 ... -2. ,- - ..--- - -                	                 >>>1. referenced"" .5 .A == |> ---"" - -/", -2 -? .... --- >	> - - .. ... ...
+ - - -4 --- ---101	................52 -- ...P -- .." …2 ~0, - . ,1	| --- --e2 view a < --- -">��� ; --- - - -	, -      -3 ... -- I -	  	 :) - -- - - - -". --| - -B ---................ ... :- .... --- -> .2 - ... -D -- = - --- , --- --- ... .... --- ...    		 ... , — ..i ... -> - . ->			 -- -->	 <> ### ... ### -> ->	 >## . { :)	", ... -> ...##2" ... ...-	 ... .	 .... . --- ~ ... ---	 --- ....	 -> ... -> -> ... - "" ---" he ||" {} "" " . \\ ---2	3 ->T B-Sw2 .... "0 -", "", {" / > -> .. .. -> "", ---";5 .... "" ;## --> sc220	 ->2 ...	 --- ....   	" "" ??5" ''	 "</ ] ..."	1"'"" "1",	". """" ...G ->3 Was ... ..." " ...", ...       "               T"00 ... ",72 ... - == https " ... cap                 this " =" "1" " --- ... "". """, " --- ", " => """ s" "1" "")	""" ", ",". .. ... ... " ...	1" """ ...2 """	 \\ ....	 "; ... "" \ ",", | "." "". ...10 ... "" ,".", ... ") ...)73 """ ...." """	" " ...``` ```" ABC4 "" """", ",4"+"+[^ ", "" """ ", "," ... " ", " ", ", " ""."" " ") " "@","]") .", ";",",",",1" . " ";" "". -> n ..." " """ ..." """5 ->"``0 "- ...". . """" ="" https """``"}" IT""" ";""]" "", "-""} No m" " ": "," . ,"""] " " </") ||" ""] a - " ~"", " ", https" .	" . "" "",	"5" "1"") ..."" " "-"". "@5"0 ..." ...." https".	" """ "". https "":" "" "". " Sup" " ." ... "': " ..." " ""2 ..." " Usually. https . ...
+p bu.- ^. a, p,..... bu,.,.. s ?, ..., ide
+, i.,. ., d 
+,.,.. ..... * y.., ^ a d. a. bi da. p a d g -, c. .,,, fil,
+, be.,, (,,,,,,,,,.,
+.,,.,, drag,,,.,, (,,, @, a,,,,,.., just ... ....,. ...,,,,..,,.,...,...,.,, c. b.,,,... be ., .
+, .... a. d, a, near, a, .,., (.,, b,,,,,,,,,,, h,., .,,,., ..., ..., b,. ...,,.,. ....,.
+ . da / b.,,,.
+,,, kir,,,,,,,,, c.....,, ...,, ..., ... -,.,, -
+,.
+.
+.
+..
+..
+
+..
+-
+, --,,,.,...,..,...,.,.,.
+.
+... .
+!..
+2
+, . ...
+	 blood ...	 ....2. - ...1	 --- ... ..._ ....0.2
+ -C-E, -.;	8 
+	A ...! ^ ....T_R2          .. -."	F.A"1. --- -1- .... - -> - ' % ->. ---	O --- -] * ...]	2 ...2 }, !1]	 >2-0 .H "; ---B - - - --- ->, - - ----ve.	11 .2) -##	---------------- ---	', ....3 ### -- ....	 -- - --- --- .\ ---	 ?	 big . '> - --- - ... -- - -- .... ... . --- ---	 ... ... --> | -	 large . --- -> -- ->He - ...	", - --- -A ... --- ///	 - -- ... - - - -- - -> - -	 - - -> -- --> ...	 --- ... \\	 ." - --- ]."________________ - .", --> ...." -> > -- ... "	 ... ..." ... -	 . "" .... ... --- ... - .- ---" \\ --- - ..."R" --- ---" ... … < -- ...." // ---" ... " ... " ". "- ``. @3" yourself", --- -> ->aa ... --- " ... #3 /" ->	9 ....""0 ""	1 ""1 " --> ..2 ....	*" ...			"+T	```" """ ...", -- -> "".	,-	" "`` " ...		 "	" ...	1" Констан Our " ок .... B	3" ", "-0 -> Let ... . " " ... "" " Thanks ... /// ", https" ...."] " "," "". " ... "". ", "- " "," ""] ","", ... !=" ... {"2" " ", " ... "	 Altern "	", {" -> " " ... .. """	 "1" ---" "66" """ ..." ... > ... " ... "" ...'' `` ", " {"0 " "... ##[""" -> ..4 ",")"} ...1 Man"0" "```" "" ``` """ ", } .." ", "," ",", ", \\" " ",", "".", ",["", ", ... "".", ", ", """ " rod"". ." "0" " ""4                ")))) ]"" .... {" ","" south \\ "," )." '' \\ )	" """ https11" }" "".","1 </" A"["" "1" " () */ m block" ""? " "." ... """ Hello""" }" | } .2 """ )"" """5 """0""" "".5 eat"'' ... | "",", " https".0"�"," """ " " Abgerufen " ": "": "": "". " ")" ... ... ... ." " ... parte" ...". ... "" "2"    5
+tr.,, very p a,.....,,.-..,...
+ vig y.
+,
+.., next. - p0,,.. | cot- -.., pay.. (....
+.., h ... ., D (. c a,..,, c.,, - w.,,.,,.,...,,.-,,.H.,.,,.,,,, .,.. ...,,,,,..,.,. ... b ..., ... po.,,,,.,.,. c,..,., ... h. (. ...,. .,., ... a b. hab, a, h.. c,,, c,,,,,,,,,.,,,.,, l.. -.:., ... ... …,,., .... !. ... ....., - a., a.,
+,
+..,,,,,,,,,,,,,,.,,,. ... ...,.,.,...,,,
+,,,
+,
+
+...
+.
+....
+
+
+.,..,,,.,,.,,,..,.,.... -.. ....
+-- ....)
+E .(X0? . --
+ - ..2
+	 >-F ...- ~ ...0 ....-a0 .15 - | et2R shown fo.R	K	K
+ .... .R		B |
+B', -."T	" -1</ ...1 -0 - ..." ..... .... --- .... -3 -)A >0", //2 . , --- -	3	". ... ...2 <1 - . .... ., ! f##	" - - ,2 -> -ik ---2 -> - ----  		 - --> - . --- -- -->	      - --- ... - ... - . --- - - -2 -<##"" .... --- => E ... - . .... .... \\ - - -	 ||" | ---",	 - -##	H // ``` ... -- - . - --- --- ... - -> -> business princes . -- - -2 --- ---" -- - ... -> ... ..."" ... --- . .... ...	"" - —"" , " -- -	" -> ... - ..." .... … .... --- - ...	 " ... -	 ....2 --- ---	0 This -> - -> -> -    ... -- "" s ) |## "2"" "	 Our .... ..") ... ..." ->", "" -> -> ... ~-[" => \\0 <"."1 `0 "80 //A	" """	" -- ->		" `		 https" --- ....	" ... ---" --- ...."" ... "................0	4 ``` ...0" ", ... ... .... "+ ```(... .... "Le ..6" ... ### ... ### ) | .. "" " Bod " Hun" " ", """ ";" ... " ";", ")"", " . " ",","),","9" " ", " ", "" ";                20 "", * --- "" .... c" " ```1 . ... ", "" .... ... " ... """ ... """9" '' =>" ... "" """ ```	 {" \\ They" ) ");"+ " `" ... } " `` ") ""1##", \\2"1" ] \\ """ }" '," .", . "' " .... `` " "" '' ", "," https1 "" ", d" ... ", ",5", ",""+ `<" . } " " https" -> !" "". PMID"	" ..." D": "6" "" [] """ . ")" ": \\ "); "" """ "."""```" ""]" satisfying" /*"" https" "", alias ... B"", . " https"" https"" '" ")" """+ =>" "	" . "" =>",5"", ," "-4" "..."" """ "". "", """"¨" ")" p" " https "" Don" "". https " }" "": ." "": e "":",{"""; ... " ``" ....5 """ "bes ... ." ...""------" ""
+h, A. sn . ho. c.., h,,..,.,, he .,..
+	..
+.
+, x ?,.,.,.. |.. :.,. by,.... em n
+, which.. Sometimes.] * c se d., s.. .,,,,.,., -,,.,,.,.,,..,,., cl
+,,, d c ...,,,
+,, ... ...,, .,.,, ..,.,. cal. .....,,-. b.. ...., n.., .....,,.,. a.. ... c.. beat, a,,., -,., a,.,..,,,,,,,,,,,.,,., c...,.,.,, ...,, aâ a., c - clear... ... -.,.. .,
+., ...,,,,,,,,,,,,,,.,.,, bu,,.,,., ...., ...,
+.,....
+..
+
+
+
+,
+
+
+.,..
+-
+..,,......,.....,....
+... ..0.
+
+. <1. . |.. be	6.
+ .2	12 ...," #,-.",5 .... -	
+StO -
+5................4	###.B.5BWB-M -.">
+ - <- "
+    a3 x --- . .... ->< > :) ...".B - -C) < == -	 ###. ...2 -YTh^\ - .... ... .... - - A. - -8	] *---2 >>> - -> .... ..", --- <> ->2 --- , // ": / - -- - .... ---- . > -0 - -	2        -; - -1 . - .... - --- \\ - - - - .... ... - -		 - --- -- --- -1 - ---; -> - ... --- - — ,       ,B - ~ - --- --- - --> ....	 -> ---  // - -> --- ... --- / ... "- -> -> ...	B ... -", "" ... ", .... ...A Dr" " . -- ... \\ . . ### / -- . --- - ... ... ... - --- .... . --- -> => > ....5 >3 ... --- ....	 --- "	 ... ... ... - "" -- ,"+ -- "" -- { "	7" -> ! --> {" --- "" {"1 " ---	" */9	"1>		"" -> .##"		 :)	"		" y"		"	." </" \."0", https"	aaaa"1	 "@	0 .... "..."1 ... ---        -> ma `","	 """ "", \\ ") .... ", ... ... ... " This ""A " crash" .", "" ", .... "" " } "" """ ... "", ... " ... " ",."","]." ", ... ", " "!" "," ==" @2" ",", a" " ", ... "        """¦ [] -> ... ... get" """ "*" "". ... ""] "2" ...	"] "" https "" " ") // ... in ->2 .... """"R" ",4"" "":1."3"" ->- ", "" \\ ")","] "; "-" " ; "".", " .. "-" ", "", " "," ",",",",", ";" " ", lift" Retrieved" " ",", "". " aa" " ",	" Cape ... ->5""; ",	 " "< --> """ . ";" \\ """"+imal" accur voice''"" }""> ...."":" ",")" Def"" "", generated "", "0 */" "") " suppress"" "("", "64 """ ....". )" "", "":"[]" ."", " "," ""0"""" ubic"5" ":" " \\" "": ." ... " . """ de" } """ solo" "� .." \\" ." ... "": ./" .8" " ... "" ..." ...

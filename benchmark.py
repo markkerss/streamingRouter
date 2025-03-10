@@ -97,9 +97,12 @@ def load_workloads(branches_num: int):
 
 def execute(workloads):
     for round_info in workloads:
-        for info in round_info:
-            client.run_query(json.dumps(info))
-
+        for i in range(len(round_info) - 1):
+            client.add_query(json.dumps(round_info[i]))
+        result = client.run_query(json.dumps(round_info[len(round_info) - 1]))
+        if len(result) > 0:
+            with open("benchmark_output.txt", "a") as output_file:
+                output_file.write(str(result[0]) + "\n")
 
 def main(branches_num: int):
     print("branches_num: ", branches_num, flush=True)
@@ -108,19 +111,6 @@ def main(branches_num: int):
     start = time.time()
     execute(workloads)
     print(f"Time: {time.time() - start:.4f} (s)", flush=True)
-
-    # Browse the log to get the max allocated memory.
-    max_num_tokens = 0
-    with open("../ParrotServe/artifact/figure17/log/engine_noOS.log", "r") as f:
-        lines = f.readlines()
-        for line in lines:
-            result = parse.parse(
-                "{pre}num_cached_tokens: {num_tokens}",
-                line,
-            )
-            if result is not None:
-                max_num_tokens = max(max_num_tokens, int(result["num_tokens"]))
-    print(f"blocks_num:  {max_num_tokens // 16}", flush=True)
 
 
 if __name__ == "__main__":
