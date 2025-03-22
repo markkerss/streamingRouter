@@ -1,12 +1,8 @@
 import json
-import asyncio
-import sys
-import parse
 from transformers import AutoTokenizer
 from client_library.clientLibrary import ClientLibrary
 import time
-
-client = ClientLibrary("parrotserve")
+import multiprocessing as mp
 
 def load_workloads(branches_num: int):
     """Returns something like:
@@ -95,7 +91,10 @@ def load_workloads(branches_num: int):
     return ret
 
 
-def execute(workloads):
+def execute(workloads, barrier):
+    client = ClientLibrary("parrotserve")
+    barrier.wait()
+    
     for round_info in workloads:
         for i in range(len(round_info) - 1):
             client.add_query(json.dumps(round_info[i]))
@@ -104,15 +103,29 @@ def execute(workloads):
             with open("benchmark_output.txt", "a") as output_file:
                 output_file.write(str(result[0]) + "\n")
 
-def main(branches_num: int):
-    print("branches_num: ", branches_num, flush=True)
+def main():
+    workloads = load_workloads(1)
+    for num_clients in [8]:
+        print(f"\nTesting with {num_clients} clients...")
+        start = time.time()
+        # Create a barrier to synchronize start
+        barrier = mp.Barrier(num_clients)
+        
+        # Create and start client processes
+        processes = []
+        for _ in range(num_clients):
+            p = mp.Process(
+                target=execute,
+                args=(workloads, barrier)
+            )
+            processes.append(p)
+            p.start()
+        
+        # Wait for all processes to complete
+        for p in processes:
+            p.join()
 
-    workloads = load_workloads(branches_num)
-    start = time.time()
-    execute(workloads)
-    print(f"Time: {time.time() - start:.4f} (s)", flush=True)
-
+        print(f"Clients: {num_clients}, Time: {time.time() - start:.4f} (s)", flush=True)
 
 if __name__ == "__main__":
-    for bn in [4, 8, 12, 16]:
-        main(bn)
+    main()

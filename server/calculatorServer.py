@@ -5,8 +5,8 @@ from serverTemplate import ServerTemplate
 import requests
 
 class CalculatorServer(ServerTemplate):
-  def __init__(self):
-    super().__init__()
+  def __init__(self, port=None):
+    super().__init__(service_name="calculator", port=port)
     self.baseUrl = "http://api.mathjs.org/v4/?expr="
 
   def add_query(self, chunk):
@@ -22,12 +22,7 @@ class CalculatorServer(ServerTemplate):
     return result
 
 def serve():
-  portNum = "50053"
-  server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-  router_pb2_grpc.add_RouterServicer_to_server(CalculatorServer(), server)
-  server.add_insecure_port(f"[::]:{portNum}")
-  server.start()
-  print(f"Calculator Service Running on port {portNum}")
+  server = CalculatorServer()  # Dynamic port
   server.wait_for_termination()
 
 if __name__ == "__main__":

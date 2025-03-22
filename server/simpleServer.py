@@ -1,9 +1,9 @@
-from generated import router_pb2_grpc
-import grpc
-from concurrent import futures
 from serverTemplate import ServerTemplate
 
 class SimpleServer(ServerTemplate):
+  def __init__(self, port=None):
+    super().__init__(service_name="simple", port=port)
+    
   def add_query(self, chunk):
     return chunk + " bob!"
   
@@ -11,11 +11,7 @@ class SimpleServer(ServerTemplate):
     return chunks
 
 def serve():
-  server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-  router_pb2_grpc.add_RouterServicer_to_server(SimpleServer(), server)
-  server.add_insecure_port("[::]:50052")
-  server.start()
-  print("Simple Service Running on port 50052")
+  server = SimpleServer()  # Dynamic port
   server.wait_for_termination()
 
 if __name__ == "__main__":

@@ -5,14 +5,65 @@ from abc import abstractmethod, ABC
 import time
 import grpc
 from threading import Lock
+from concurrent import futures
+from config import get_router_address
 
 class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
-  def __init__(self):
+  def __init__(self, service_name, port=None):
+    """
+    Initialize a server with dynamic registration to the router.
+    
+    Args:
+        service_name: Name of the service to register with the router
+        port: Optional port number. If None, a port will be dynamically allocated
+    """
+    self.service_name = service_name
+    self.port = port
     self.requests = {}
     self.lock = Lock()
+    self.server = None
+    self.address = None
     
-    routerChannel = grpc.insecure_channel("localhost:50058")
+    # Start the server with dynamic or specified port
+    self._start_server()
+    
+    # Connect to the router using the address from config
+    router_address = get_router_address()
+    routerChannel = grpc.insecure_channel(f"localhost:{router_address}")
     self.routerStub = router_pb2_grpc.RouterStub(routerChannel)
+    
+    # Register this server with the router
+    self._register_with_router()
+
+  def _start_server(self):
+    """Start the server with a dynamically allocated port or specified port"""
+    self.server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    router_pb2_grpc.add_RouterServicer_to_server(self, self.server)
+    
+    if self.port is None:
+      # Dynamically allocate a port
+      port = self.server.add_insecure_port("[::]:0")
+      self.address = f"localhost:{port}"
+    else:
+      # Use the specified port
+      self.server.add_insecure_port(f"[::]:{self.port}")
+      self.address = f"localhost:{self.port}"
+      
+    self.server.start()
+    print(f"{self.service_name} Service running on {self.address}")
+
+  def _register_with_router(self):
+    """Register this server with the router"""
+    try:
+      server_info = router_pb2.ServerInfo(
+        service_name=self.service_name,
+        address=self.address
+      )
+      self.routerStub.RegisterServer(server_info)
+      print(f"Successfully registered {self.service_name} with router at {self.address}")
+    except Exception as e:
+      print(f"Failed to register with router: {str(e)}")
+      # You might want to retry or exit here depending on your requirements
 
   def _add_req_to_dict(self, request):
     requestJson = json.loads(request.info)
@@ -69,6 +120,11 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
 
   def ReceiveResponse(self, request, context):
     context.abort(grpc.StatusCode.UNIMPLEMENTED, "ReceiveResponse is not implemented.")
+
+  def wait_for_termination(self):
+    """Wait for the server to terminate"""
+    if self.server:
+      self.server.wait_for_termination()
 
   @abstractmethod
   def add_query(self, chunk) -> str:

@@ -5,14 +5,16 @@ from serverTemplate import ServerTemplate
 import requests
 import json
 from transformers import AutoTokenizer
+import random
 
 class ParrotServeServer(ServerTemplate):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, port=None):
+        super().__init__(service_name="parrotserve", port=port)
         # Default to localhost but can be configured
         self.engine_url = "http://localhost:9001"
-        self.next_context_id = 0
-        
+        self.next_context_id = 1
+        self.next_tid = 1
+        self.pid = random.randint(0, 1000000)
         self.tokenizer = AutoTokenizer.from_pretrained("lmsys/vicuna-13b-v1.3")
         # Test engine connection
         self._check_engine_connection()
@@ -42,22 +44,24 @@ class ParrotServeServer(ServerTemplate):
             try:
                 # Get shared prompt from the chunk
                 shared_prompt = chunk["shared_prompt"]
-                diverged_prompt = chunk.get("diverged_prompt", "")
-                output_len = chunk.get("output_len", 100)
+                diverged_prompt = chunk["diverged_prompt"]
+                output_len = chunk["output_len"]
                 full_prompt = "1" + shared_prompt + diverged_prompt
                 print(f"full_prompt: {full_prompt}\noutput_len: {output_len}\n")
                 tokenized_prompt = self.tokenizer.encode(full_prompt, add_special_tokens=False)
                 
                 # Create a new context ID for each request
+                tid = self.next_tid
                 context_id = self.next_context_id
                 self.next_context_id += 1
+                self.next_tid += 1
                 
                 # First, initialize the context with a Fill operation
                 fill_response = requests.post(
                     f"{self.engine_url}/fill",
                     json={
-                        "pid": 0,
-                        "tid": 0,
+                        "pid": self.pid,
+                        "tid": tid,
                         "context_id": context_id,
                         "parent_context_id": -1,
                         "end_flag": False,
@@ -76,8 +80,8 @@ class ParrotServeServer(ServerTemplate):
                             "max_gen_length": output_len,
                             "ignore_tokenizer_eos": True,
                         },
-                        "pid": 0,
-                        "tid": 0,
+                        "pid": self.pid,
+                        "tid": tid,
                         "context_id": context_id,
                         "parent_context_id": context_id,
                         "end_flag": True
@@ -123,21 +127,12 @@ class ParrotServeServer(ServerTemplate):
             except Exception as e:
                 error_msg = f"Error: {str(e)}"
                 print(error_msg)
-                
-        self.context_ids_filled = []
-        self.prev_context_id = -1
-        self.next_context_id = 0
+                result.append(error_msg)
 
         return result
 
 def serve():
-    portNum = "50065"
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    router_pb2_grpc.add_RouterServicer_to_server(ParrotServeServer(), server)
-    server.add_insecure_port(f"[::]:{portNum}")
-    server.start()
-    print(f"ParrotServe Benchmark Service Running on port {portNum}")
-    print(f"Connected directly to engine without OS layer")
+    server = ParrotServeServer()  # Dynamic port
     server.wait_for_termination()
 
 if __name__ == "__main__":

@@ -1,0 +1,37 @@
+batch_sum:  1114
+batch_sum:  4334
+batch_sum:  5265
+batch_sum:  6172
+batch_sum:  5265
+batch_sum:  6172
+batch_sum:  5265
+batch_sum:  6172
+batch_sum:  5265
+batch_sum:  6172
+
+Testing with 1 clients...
+Client Service Running on port localhost:39029
+Clients: 1, Time: 164.0326 (s)
+
+Testing with 2 clients...
+Client Service Running on port localhost:40777
+Client Service Running on port localhost:42439
+Clients: 2, Time: 180.6010 (s)
+
+Testing with 4 clients...
+Client Service Running on port localhost:45829
+Client Service Running on port localhost:34645
+Client Service Running on port localhost:45889
+Client Service Running on port localhost:43595
+Clients: 4, Time: 214.9803 (s)
+
+Testing with 8 clients...
+Client Service Running on port localhost:40219
+Client Service Running on port localhost:33669
+Client Service Running on port localhost:41501
+Client Service Running on port localhost:40383
+Client Service Running on port localhost:33797
+Client Service Running on port localhost:38707
+Client Service Running on port localhost:38697
+Client Service Running on port localhost:45683
+Clients: 8, Time: 867.5577 (s)

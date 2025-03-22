@@ -6,6 +6,7 @@ import uuid
 from threading import Thread, Lock, Event
 from concurrent import futures
 import time
+from config import get_router_address
 
 from google.protobuf.empty_pb2 import Empty
 
@@ -23,8 +24,10 @@ class ClientLibrary(router_pb2_grpc.RouterServicer):
     self._start_server()
     self._port_assigned.wait()
 
-    routerChannel = grpc.insecure_channel("localhost:50058")
-    self.stub = router_pb2_grpc.RouterStub(routerChannel)
+    # Connect to the router using the address from config
+    router_address = get_router_address()
+    channel = grpc.insecure_channel(f"localhost:{router_address}")
+    self.stub = router_pb2_grpc.RouterStub(channel)
   
     def send_to_middleware():
       self.stub.RouteRequestChunks(self._generate_query())
