@@ -1,7 +1,7 @@
 from serverTemplate import ServerTemplate
 from crewai import Agent, LLM, Task
-import os
-from langchain_community.llms.ollama import Ollama
+import time
+
 class MarketResearcherAgent(ServerTemplate):
   def __init__(self, port=None):
     super().__init__(service_name="market_researcher", port=port)
@@ -23,12 +23,14 @@ class MarketResearcherAgent(ServerTemplate):
   
   def run_query(self, chunks):
     prompt = " ".join(chunks)
+    start_task_time = time.time()
     task = Task(
       description=prompt,
       agent=self.agent,
       expected_output="Detailed market research and recommendations"
     )
     response = self.agent.execute_task(task)
+    print("Task completed", time.time() - start_task_time)
     return [response]
 
 def serve():

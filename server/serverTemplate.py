@@ -50,7 +50,7 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
       self.address = f"localhost:{self.port}"
       
     self.server.start()
-    print(f"{self.service_name} Service running on {self.address}")
+    # print(f"{self.service_name} Service running on {self.address}")
 
   def _register_with_router(self):
     """Register this server with the router"""
@@ -60,7 +60,7 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
         address=self.address
       )
       self.routerStub.RegisterServer(server_info)
-      print(f"Successfully registered {self.service_name} with router at {self.address}")
+      # print(f"Successfully registered {self.service_name} with router at {self.address}")
     except Exception as e:
       print(f"Failed to register with router: {str(e)}")
       # You might want to retry or exit here depending on your requirements
@@ -68,15 +68,15 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
   def _add_req_to_dict(self, request):
     requestJson = json.loads(request.info)
     requestData = self.add_query(requestJson["data"])
-    print(f"Received data in server: {requestData}")
+    # print(f"Received data in server: {requestData}")
     requestJson["data"] = requestData
     modifiedRequest = router_pb2.Request(info=json.dumps(requestJson))
-    print("finished modifying data")
+    # print("finished modifying data")
     request_id = requestJson["request_id"]
     if request_id not in self.requests:
       self.requests[request_id] = {}
     self.requests[request_id][requestJson["chunk_id"]] = modifiedRequest
-    print("finished admin work on server for requst")
+    # print("finished admin work on server for request", request_id)
 
   def RouteRequestChunks(self, request_iterator, context):
     for request in request_iterator:
@@ -101,7 +101,7 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
       if chunk_ids.issubset(req_dict_chunk_ids):
         break
       time.sleep(1)
-    print("all chunks have arrived")
+    # print("all chunks have arrived")
 
     chunksOfData = [json.loads(chunkInfo.info)["data"] for chunkInfo in self.requests[requestJson["request_id"]].values()]
     del self.requests[requestJson["request_id"]]
@@ -113,7 +113,7 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
       "request_ip": requestJson["request_ip"]
     }))
 
-    print("Sending response from server to router")
+    # print("Sending response from server to router")
     self.routerStub.ReceiveResponse(response)
 
     return Empty()

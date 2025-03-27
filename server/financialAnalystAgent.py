@@ -1,8 +1,6 @@
 from serverTemplate import ServerTemplate
 from crewai import Agent, LLM, Task
-import os
-from langchain_community.llms.vllm import VLLMOpenAI
-from langchain_community.llms.ollama import Ollama
+import time
 class FinancialAnalystAgent(ServerTemplate):
   def __init__(self, port=None):
     super().__init__(service_name="financial_analyst", port=port)
@@ -24,12 +22,14 @@ class FinancialAnalystAgent(ServerTemplate):
   
   def run_query(self, chunks):
     prompt = " ".join(chunks)
+    start_task_time = time.time()
     task = Task(
       description=prompt,
       agent=self.agent,
       expected_output="Detailed financial analysis and recommendations"
     )
     response = self.agent.execute_task(task)
+    print("Task completed", time.time() - start_task_time)
     return [response]
 
 def serve():

@@ -100,7 +100,7 @@ class Router(router_pb2_grpc.RouterServicer):
 
     def ReceiveResponse(self, response, context):
       responseJson = json.loads(response.info)
-      print("Received response on the middleware", responseJson["data"])
+      # print("Received response on the middleware", responseJson["data"])
       self.responses[responseJson["request_id"]] = response
       return Empty()
 

@@ -1,8 +1,6 @@
 from serverTemplate import ServerTemplate
 from crewai import Agent, LLM, Task
-import os
-from langchain_community.llms.vllm import VLLMOpenAI
-from langchain_community.llms.ollama import Ollama
+import time
 
 class InvestmentAdvisorAgent(ServerTemplate):
   def __init__(self, port=None):
@@ -30,7 +28,9 @@ class InvestmentAdvisorAgent(ServerTemplate):
       agent=self.agent,
       expected_output="Detailed investment analysis and recommendations"
     )
+    start_task_time = time.time()
     response = self.agent.execute_task(task)
+    print("Task completed", time.time() - start_task_time)
     return [response]
 
 def serve():

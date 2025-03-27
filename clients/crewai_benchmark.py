@@ -2,6 +2,7 @@ from crewai import Agent, Crew, Task, Process, LLM
 import time
 class FinancialAdvisorCrew:
   def crew(self) -> Crew:
+    start_time = time.time()
     user_query = "Create a stock portfolio for a 30 year old with interest in exposure to Mag 7 stocks, and bonds"
     llm = LLM(
       model="ollama/llama3.1:8b",
@@ -51,7 +52,7 @@ class FinancialAdvisorCrew:
       expected_output="A report summarizing key trends in the market.",
       agent=marketResearcher
     )
-    
+
     task_three = Task(
       description=f"Please analyze the following query from an investment perspective: '{user_query}'. Provide specific investment recommendations that would be helpful for a financial advisor.",
       expected_output="A personalized investment portfolio recommendation.",
@@ -62,26 +63,23 @@ class FinancialAdvisorCrew:
       description=f"Client Query: {user_query}\n\nBased on the insights from all three experts, please provide a comprehensive and integrated financial advice response for the client. Incorporate the most relevant information from each expert into a cohesive recommendation.",
       agent=financialAdvisor,
       expected_output="Comprehensive financial advice and portfolio recommendations",
-      context=[task_one, task_two, task_three],
-      output_file="result_crewai.md"
+      output_file="result_crewai.md",
+      context=[task_one, task_two, task_three]
     )
-    
+
     crew = Crew(
       agents=[financialAdvisor, financialAnalyst, investmentAdvisor, marketResearcher],
       tasks=[task_one, task_two, task_three, task_four],
       process=Process.sequential,
-      verbose=True
+      verbose=True,
+      cache=False
     )
+    
+    crew.kickoff()
+    end_time = time.time()
+    print(f"Time taken: {end_time - start_time} seconds")
 
-    return crew
-  
-  def run_crew(self):
-    crew = self.crew()
-    return crew.kickoff()
-  
+    print(f"Advisor task prompt: {task_four.output.description}")
+
 if __name__ == "__main__":
-  start_time = time.time()
-  crew = FinancialAdvisorCrew()
-  print(crew.run_crew())
-  end_time = time.time()
-  print(f"Time taken: {end_time - start_time} seconds")
+  FinancialAdvisorCrew().crew()
