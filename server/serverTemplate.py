@@ -6,10 +6,10 @@ import time
 import grpc
 from threading import Lock
 from concurrent import futures
-from config import get_router_address
+from config import ROUTER_PORT, ROUTER_IP
 
 class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
-  def __init__(self, service_name, port=None):
+  def __init__(self, service_name, port=None, ip="localhost"):
     """
     Initialize a server with dynamic registration to the router.
     
@@ -19,17 +19,18 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
     """
     self.service_name = service_name
     self.port = port
+    self.ip = ip
     self.requests = {}
     self.lock = Lock()
     self.server = None
     self.address = None
     
+    
     # Start the server with dynamic or specified port
     self._start_server()
     
     # Connect to the router using the address from config
-    router_address = get_router_address()
-    routerChannel = grpc.insecure_channel(f"localhost:{router_address}")
+    routerChannel = grpc.insecure_channel(f"{ROUTER_IP}:{ROUTER_PORT}")
     self.routerStub = router_pb2_grpc.RouterStub(routerChannel)
     
     # Register this server with the router
@@ -41,16 +42,12 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
     router_pb2_grpc.add_RouterServicer_to_server(self, self.server)
     
     if self.port is None:
-      # Dynamically allocate a port
-      port = self.server.add_insecure_port("[::]:0")
-      self.address = f"localhost:{port}"
+      self.port = self.server.add_insecure_port("[::]:0")
     else:
-      # Use the specified port
-      self.server.add_insecure_port(f"[::]:{self.port}")
-      self.address = f"localhost:{self.port}"
-      
+      self.server.add_insecure_port(f"{self.ip}:{self.port}")
+    self.address = f"{self.ip}:{self.port}"
+
     self.server.start()
-    # print(f"{self.service_name} Service running on {self.address}")
 
   def _register_with_router(self):
     """Register this server with the router"""
@@ -110,7 +107,7 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
       "data": newData,
       "request_id": requestJson["request_id"],
       "service_name": requestJson["service_name"],
-      "request_ip": requestJson["request_ip"]
+      "request_address": requestJson["request_address"]
     }))
 
     # print("Sending response from server to router")

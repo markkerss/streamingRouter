@@ -6,28 +6,28 @@ import uuid
 from threading import Thread, Lock, Event
 from concurrent import futures
 import time
-from config import get_router_address
+from config import ROUTER_IP, ROUTER_PORT
 
 from google.protobuf.empty_pb2 import Empty
 
 class ClientLibrary(router_pb2_grpc.RouterServicer):
-  def __init__(self, service_name):
+  def __init__(self, service_name, ip="localhost"):
     self.service_name = service_name
     self.requests = Queue()
     self.responses = {}
     self.currChunkId = 0
     self.requestId = str(uuid.uuid4())
     self.lock = Lock()
-    self.ip = None
+    self.address = None
+    self.ip = ip
 
     self._port_assigned = Event()
     self._start_server()
     self._port_assigned.wait()
 
     # Connect to the router using the address from config
-    router_address = get_router_address()
-    channel = grpc.insecure_channel(f"localhost:{router_address}")
-    self.stub = router_pb2_grpc.RouterStub(channel)
+    routerChannel = grpc.insecure_channel(f"{ROUTER_IP}:{ROUTER_PORT}")
+    self.stub = router_pb2_grpc.RouterStub(routerChannel)
   
     def send_to_middleware():
       self.stub.RouteRequestChunks(self._generate_query())
@@ -46,7 +46,7 @@ class ClientLibrary(router_pb2_grpc.RouterServicer):
       "request_id": self.requestId, 
       "service_name": self.service_name, 
       "is_final_chunk": is_final,
-      "request_ip": self.ip
+      "request_address": self.address
     }
     if is_final:
       self.currChunkId = 0
@@ -89,10 +89,10 @@ class ClientLibrary(router_pb2_grpc.RouterServicer):
       server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
       router_pb2_grpc.add_RouterServicer_to_server(self, server)
       port = server.add_insecure_port("[::]:0")
-      self.ip = f"localhost:{port}"
+      self.address = f"{self.ip}:{port}"
       self._port_assigned.set()
       server.start()
 
-      print("Client Service Running on port", self.ip)
+      print("Client Service Running on port", self.address)
       server.wait_for_termination()
     Thread(target=serve, daemon=True).start()

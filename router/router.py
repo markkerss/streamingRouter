@@ -8,7 +8,7 @@ from collections import defaultdict
 import time
 
 from google.protobuf.empty_pb2 import Empty
-from config import ROUTER_PORT
+from config import ROUTER_IP, ROUTER_PORT
 
 class Router(router_pb2_grpc.RouterServicer):
     def __init__(self):
@@ -47,7 +47,7 @@ class Router(router_pb2_grpc.RouterServicer):
           ).start()
           self.serverPipes.add(service_name)
         if request_id not in self.clientStubs:
-          self.clientStubs[request_id] = router_pb2_grpc.RouterStub(grpc.insecure_channel(requestJson["request_ip"]))
+          self.clientStubs[request_id] = router_pb2_grpc.RouterStub(grpc.insecure_channel(requestJson["request_address"]))
       
       return True
 
@@ -108,10 +108,10 @@ def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     servicer = Router()
     router_pb2_grpc.add_RouterServicer_to_server(servicer, server)
-    server.add_insecure_port(f"[::]:{ROUTER_PORT}")
+    server.add_insecure_port(f"{ROUTER_IP}:{ROUTER_PORT}")
     server.start()
 
-    print(f"Router Service Running on {ROUTER_PORT}")
+    print(f"Router Service Running on {ROUTER_IP}:{ROUTER_PORT}")
     server.wait_for_termination()
 
 if __name__ == "__main__":

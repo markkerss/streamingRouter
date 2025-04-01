@@ -3,12 +3,14 @@ from crewai import Agent, LLM, Task
 import time
 
 class InvestmentAdvisorAgent(ServerTemplate):
-  def __init__(self, port=None):
-    super().__init__(service_name="investment_advisor", port=port)
+  def __init__(self, port=None, ip="localhost"):
+    super().__init__(service_name="investment_advisor", port=port, ip=ip)
     
     llm = LLM(
       model="ollama/llama3.1:8b",
       base_url="http://localhost:11434",
+      temperature=0.5,
+      max_tokens=500,
     )
 
     self.agent = Agent(

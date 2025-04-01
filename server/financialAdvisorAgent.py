@@ -11,6 +11,8 @@ class FinancialAdvisorAgent(ServerTemplate):
     llm = LLM(
       model="ollama/llama3.1:8b",
       base_url="http://localhost:11434",
+      temperature=0.5,
+      max_tokens=500,
     )
 
     print("LLM initialized")
