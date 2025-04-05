@@ -96,7 +96,7 @@ class Router(router_pb2_grpc.RouterServicer):
       
       server_address = self._get_server_address(request_id, service_name)
       self.loadBalancer.increment_load(service_name, server_address)
-      print(f"Load after increment: {self.loadBalancer.get_all_server_loads()}")
+      print(f"Load after increment: {self.loadBalancer.print_all_server_loads()}")
       self.serverStubs[server_address].RouteLastRequestChunk(request)
 
       request_id = requestJson["request_id"]
@@ -116,7 +116,7 @@ class Router(router_pb2_grpc.RouterServicer):
       service_name = responseJson["service_name"]
       server_address = self.requestServerAddressMap[request_id]
       self.loadBalancer.decrement_load(service_name, server_address)
-      print(f"Load after decrement: {self.loadBalancer.get_all_server_loads()}")
+      print(f"Load after decrement: {self.loadBalancer.print_all_server_loads()}")
       # print("Received response on the middleware", responseJson["data"])
       self.responses[request_id] = response
 

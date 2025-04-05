@@ -88,6 +88,9 @@ class LoadBalancer:
             print(f"Server at {address} not found for service {service_name}")
             return None
     
-    def get_all_server_loads(self):
+    def print_all_server_loads(self):
         """Get the current load of all servers for all services"""
-        return self.server_loads
+        for service_name, loads in self.server_loads.items():
+            print(f"Service: {service_name}")
+            for address, load in loads.items():
+                print(f"  {address}: {load}")
