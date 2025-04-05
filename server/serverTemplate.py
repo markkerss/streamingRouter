@@ -110,7 +110,7 @@ class ServerTemplate(ABC, router_pb2_grpc.RouterServicer):
       "request_address": requestJson["request_address"]
     }))
 
-    # print("Sending response from server to router")
+    print("Sending response from server to router", response)
     self.routerStub.ReceiveResponse(response)
 
     return Empty()

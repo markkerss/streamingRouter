@@ -6,7 +6,6 @@ import time
 class FinancialAdvisorAgent(ServerTemplate):
   def __init__(self, port=None):
     super().__init__(service_name="financial_advisor", port=port)
-    print("=== Initializing Financial Advisor Agent ===")
     
     llm = LLM(
       model="ollama/llama3.1:8b",
@@ -15,16 +14,12 @@ class FinancialAdvisorAgent(ServerTemplate):
       max_tokens=500,
     )
 
-    print("LLM initialized")
-
     self.agent = Agent(
       role="Financial Advisor",
       goal="Provide personalized financial advice and portfolio recommendations",
       backstory="A certified financial advisor with expertise in portfolio management and wealth planning, with a track record of successful client relationships.",
       llm=llm
     )
-
-    print("Agent initialized successfully")
     
   def add_query(self, chunk):
     return chunk
@@ -84,7 +79,6 @@ class FinancialAdvisorAgent(ServerTemplate):
       return "Error: Unable to contact investment advisor service."
 
 def serve():
-  print("=== Starting Financial Advisor Agent server ===")
   server = FinancialAdvisorAgent()  # Dynamic port
   server.wait_for_termination()
 
