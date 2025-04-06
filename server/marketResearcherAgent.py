@@ -3,8 +3,8 @@ from crewai import Agent, LLM, Task
 import time
 
 class MarketResearcherAgent(ServerTemplate):
-  def __init__(self, port=None):
-    super().__init__(service_name="market_researcher", port=port)
+  def __init__(self, port=None, ip="localhost"):
+    super().__init__(service_name="market_researcher", port=port, ip=ip)
 
     llm = LLM(
       model="ollama/llama3.1:8b",

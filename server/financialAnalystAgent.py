@@ -2,8 +2,8 @@ from serverTemplate import ServerTemplate
 from crewai import Agent, LLM, Task
 import time
 class FinancialAnalystAgent(ServerTemplate):
-  def __init__(self, port=None):
-    super().__init__(service_name="financial_analyst", port=port)
+  def __init__(self, port=None, ip="localhost"):
+    super().__init__(service_name="financial_analyst", port=port, ip=ip)
 
     llm = LLM(
       model="ollama/llama3.1:8b",

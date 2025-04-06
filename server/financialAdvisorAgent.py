@@ -4,8 +4,8 @@ from client_library.clientLibrary import ClientLibrary
 import time
 
 class FinancialAdvisorAgent(ServerTemplate):
-  def __init__(self, port=None):
-    super().__init__(service_name="financial_advisor", port=port)
+  def __init__(self, port=None, ip="localhost"):
+    super().__init__(service_name="financial_advisor", port=port, ip=ip)
     
     llm = LLM(
       model="ollama/llama3.1:8b",

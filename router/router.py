@@ -7,7 +7,7 @@ import json
 from collections import defaultdict
 import time
 from google.protobuf.empty_pb2 import Empty
-from config import ROUTER_IP, ROUTER_PORT
+from config import ROUTER_IP, ROUTER_PORT, get_router_ip
 from loadBalancer import LoadBalancer
 
 class Router(router_pb2_grpc.RouterServicer):
@@ -124,7 +124,7 @@ class Router(router_pb2_grpc.RouterServicer):
 
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-    servicer = Router()
+    servicer = Router(distributed=True)
     router_pb2_grpc.add_RouterServicer_to_server(servicer, server)
     server.add_insecure_port(f"{ROUTER_IP}:{ROUTER_PORT}")
     server.start()
