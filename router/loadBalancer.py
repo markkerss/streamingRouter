@@ -54,30 +54,38 @@ class LoadBalancer:
         """Decrement the load for a server by the given amount"""
         self.increment_load(service_name, address, -amount)
             
-    def get_server(self, service_name):
-        """Select a server using Power of Two Choices algorithm"""
-        if self.server_counts[service_name] == 0:
-            print(f"No servers available for service {service_name}")
-            return None
+    # def get_server(self, service_name):
+    #     """Select a server using Power of Two Choices algorithm"""
+    #     if self.server_counts[service_name] == 0:
+    #         print(f"No servers available for service {service_name}")
+    #         return None
             
-        if self.server_counts[service_name] == 1:
-            return self.server_arrays[service_name][0]  # Return the only server's ID
+    #     if self.server_counts[service_name] == 1:
+    #         return self.server_arrays[service_name][0]  # Return the only server's ID
                     
-        # Pick two random indices
-        idx1 = random.randint(0, self.server_counts[service_name] - 1)
-        idx2 = random.randint(0, self.server_counts[service_name] - 1)
+    #     # Pick two random indices
+    #     idx1 = random.randint(0, self.server_counts[service_name] - 1)
+    #     idx2 = random.randint(0, self.server_counts[service_name] - 1)
         
-        # Ensure we have two different servers
-        while idx1 == idx2 and self.server_counts[service_name] > 1:
-            idx2 = random.randint(0, self.server_counts[service_name] - 1)
+    #     # Ensure we have two different servers
+    #     while idx1 == idx2 and self.server_counts[service_name] > 1:
+    #         idx2 = random.randint(0, self.server_counts[service_name] - 1)
             
-        # Compare loads and pick server with lower load
-        if self.server_loads[service_name][self.server_arrays[service_name][idx1]] <= self.server_loads[service_name][self.server_arrays[service_name][idx2]]:
-            chosen_server = self.server_arrays[service_name][idx1]
-        else:
-            chosen_server = self.server_arrays[service_name][idx2]
+    #     # Compare loads and pick server with lower load
+    #     if self.server_loads[service_name][self.server_arrays[service_name][idx1]] <= self.server_loads[service_name][self.server_arrays[service_name][idx2]]:
+    #         chosen_server = self.server_arrays[service_name][idx1]
+    #     else:
+    #         chosen_server = self.server_arrays[service_name][idx2]
             
         
+    #     return chosen_server
+
+    def get_server(self, service_name):
+        """Select a server randomly from the available servers for a service"""
+        idx = random.randint(0, self.server_counts[service_name] - 1)
+        
+        # Return the randomly selected server
+        chosen_server = self.server_arrays[service_name][idx]
         return chosen_server
     
     def get_server_load(self, service_name, address):
@@ -90,6 +98,7 @@ class LoadBalancer:
     
     def print_all_server_loads(self):
         """Get the current load of all servers for all services"""
+        print("\n--------------------------------")
         for service_name, loads in self.server_loads.items():
             print(f"Service: {service_name}")
             for address, load in loads.items():
